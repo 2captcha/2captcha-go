@@ -1,1 +1,325 @@
-# 2captcha-go
+# Golang Module for 2Captcha API
+The easiest way to quickly integrate [2Captcha] into your code to automate solving of any type of captcha.
+
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Solve captcha](#solve-captcha)
+  - [Normal Captcha](#normal-captcha)
+  - [Text](#text-captcha)
+  - [ReCaptcha v2](#recaptcha-v2)
+  - [ReCaptcha v3](#recaptcha-v3)
+  - [FunCaptcha](#funcaptcha)
+  - [GeeTest](#geetest)
+  - [hCaptcha](#hcaptcha)
+  - [KeyCaptcha](#keycaptcha)
+  - [Capy](#capy)
+  - [Grid (ReCaptcha V2 Old Method)](#grid)
+  - [Canvas](#canvas)
+  - [ClickCaptcha](#clickcaptcha)
+  - [Rotate](#rotate)
+- [Other methods](#other-methods)
+  - [send / getResult](#send--getresult)
+  - [balance](#balance)
+  - [report](#report)
+
+
+## Installation
+To install the api client, use this:
+
+```bash
+go get -u github.com/2captcha/2captcha-go
+```
+
+## Configuration
+`Client` instance can be created like this:
+```go
+client := api2captcha.NewClient("YOUR_API_KEY")
+```
+There are few options that can be configured:
+```go
+client.SoftId = 123
+client.Callback = "https://your.site/result-receiver"
+client.DefaultTimeout = 120
+client.RecaptchaTimeout = 600
+client.PollingInterval = 100
+```
+
+### Client instance options
+
+|Option|Default value|Description|
+|---|---|---|
+|soft_id|-|your software ID obtained after publishing in [2captcha sofware catalog]|
+|callback|-|URL of your web-sever that receives the captcha recognition result. The URl should be first registered in [pingback settings] of your account|
+|default_timeout|120|Timeout in seconds for all captcha types except ReCaptcha. Defines how long the module tries to get the answer from `res.php` API endpoint|
+|recaptcha_timeout|600|Timeout for ReCaptcha in seconds. Defines how long the module tries to get the answer from `res.php` API endpoint|
+|polling_interval|10|Interval in seconds between requests to `res.php` API endpoint, setting values less than 5 seconds is not recommended|
+
+>  **IMPORTANT:** once *callback URL* is defined for `client` instance, all methods return only the captcha ID and DO NOT poll the API to get the result. The result will be sent to the callback URL.
+To get the answer manually use [GetResult method](#send--getresult)
+
+## Solve captcha
+When you submit any image-based captcha use can provide additional options to help 2captcha workers to solve it properly.
+
+### Captcha options
+|Option|Default Value|Description|
+|---|---|---|
+|numeric|0|Defines if captcha contains numeric or other symbols [see more info in the API docs][post options]|
+|min_len|0|minimal answer lenght|
+|max_len|0|maximum answer length|
+|phrase|0|defines if the answer contains multiple words or not|
+|case_sensitive|0|defines if the answer is case sensitive|
+|calc|0|defines captcha requires calculation|
+|lang|-|defines the captcha language, see the [list of supported languages] |
+|hint_img|-|an image with hint shown to workers with the captcha|
+|hint_text|-|hint or task text shown to workers with the captcha|
+
+Below you can find basic examples for every captcha type, check out the code below. 
+
+### Basic example
+Example below shows a basic solver call example with error handling.
+
+```go
+cap := api2captcha.Normal{
+   File: "/path/to/normal.jpg",
+}
+
+code, err := client.Solve(cap.ToRequest())
+if err != nil {
+   log.Fatal(err);
+}
+fmt.Println("code "+code)
+
+### Normal Captcha
+To bypass a normal captcha (distorted text on image) use the following method. This method also can be used to recognize any text on the image.
+
+```go
+cap := api2captcha.Normal{
+   File: "/path/to/normal.jpg",
+   Numeric: 4,
+   MinLen: 4,
+   MaxLen: 20,
+   Phrase: true,
+   CaseSensitive: true,
+   Lang: "en",
+   HintImgFile: "/path/to/hint.jpg",
+   HintText: "Type red symbols",
+}
+```
+
+### Text Captcha
+This method can be used to bypass a captcha that requires to answer a question provided in clear text.
+
+```go
+cap := api2captcha.Text{
+   Text: "If tomorrow is Saturday, what day is today?",
+   Lang: "en",
+}
+```
+
+### ReCaptcha v2
+Use this method to solve ReCaptcha V2 and obtain a token to bypass the protection.
+
+```go
+cap := api2captcha.ReCaptcha{
+   SiteKey: "6Le-wvkSVVABCPBMRTvw0Q4Muexq1bi0DJwx_mJ-",
+   Url: "https://mysite.com/page/with/recaptcha",
+   Invisible: true,
+   Action: "verify",
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+```
+
+### ReCaptcha v3
+This method provides ReCaptcha V3 solver and returns a token.
+
+```go
+cap := api2captcha.ReCaptcha{
+   SiteKey: "6Le-wvkSVVABCPBMRTvw0Q4Muexq1bi0DJwx_mJ-",
+   Url: "https://mysite.com/page/with/recaptcha",
+   Version: "v3",
+   Action: "verify",
+   Score: 0.3,
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+```
+
+### FunCaptcha
+FunCaptcha (Arkoselabs) solving method. Returns a token.
+
+```go
+cap := api2captcha.FunCaptcha{
+   SiteKey: "69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
+   Url: "https://mysite.com/page/with/funcaptcha",
+   Surl: "https://client-api.arkoselabs.com",
+   UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+   Data: map[string]string{"anyKey":"anyValue"},   
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+```
+
+### GeeTest
+Method to solve GeeTest puzzle captcha. Returns a set of tokens as JSON.
+
+```go
+cap := api2captcha.GeeTest{
+   GT: "f2ae6cadcf7886856696502e1d55e00c",
+   ApiServer: "api-na.geetest.com",
+   Challenge: "12345678abc90123d45678ef90123a456b",
+   Url: "https://mysite.com/captcha.html",
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+
+### hCaptcha
+Method to solve GeeTest puzzle captcha. Returns a set of tokens as JSON.
+
+```go
+cap := api2captcha.HCaptcha{
+   SiteKey: "10000000-ffff-ffff-ffff-000000000001",
+   Url: "https://mysite.com/captcha.html",   
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+```
+
+### KeyCaptcha
+Token-based method to solve KeyCaptcha.
+
+```go
+cap := api2captcha.KeyCaptcha{
+   UserId: 10,
+   SessionId: "493e52c37c10c2bcdf4a00cbc9ccd1e8",
+   WebServerSign: "9006dc725760858e4c0715b835472f22",
+   WebServerSign2: "9006dc725760858e4c0715b835472f22",
+   Url: "https://www.keycaptcha.ru/demo-magnetic/",   
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+```
+
+### Capy
+Token-based method to bypass Capy puzzle captcha.
+
+```go
+cap := api2captcha.Capy{
+   SiteKey: "PUZZLE_Abc1dEFghIJKLM2no34P56q7rStu8v",
+   Url: "https://www.mysite.com/captcha/",   
+}
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.solve(req)
+
+```
+
+### Grid
+Grid method is originally called Old ReCaptcha V2 method. The method can be used to bypass any type of captcha where you can apply a grid on image and need to click specific grid boxes. Returns numbers of boxes.
+
+```go
+cap := api2captcha.Grid{
+    File: "path/to/captcha.jpg",
+    Rows: 3,
+    Cols: 3,
+    PreviousId: 0,
+    CanSkip: false,
+    Lang: "en",
+    HintImageFile: "path/to/hint.jpg",
+    HintText: "Select all images with an Orange",
+}
+```
+
+### Canvas
+Canvas method can be used when you need to draw a line around an object on image. Returns a set of points' coordinates to draw a polygon.
+
+```go
+cap := api2captcha.Canvas{
+    File: "path/to/captcha.jpg",
+    PreviousId: 0,
+    CanSkip: false,
+    Lang: "en",
+    HintImageFile: "path/to/hint.jpg",
+    HintText: "Draw around apple",
+}
+```
+
+### ClickCaptcha
+ClickCaptcha method returns coordinates of points on captcha image. Can be used if you need to click on particular points on the image.
+
+```go
+cap := api2captcha.Coordinates{
+    File: "path/to/captcha.jpg",
+    Lang: "en",
+    HintImageFile: "path/to/hint.jpg",
+    HintText: "Connect the dots",
+}
+```
+
+### Rotate
+This method can be used to solve a captcha that asks to rotate an object. Mostly used to bypass FunCaptcha. Returns the rotation angle.
+
+```go
+cap := api2captcha.Rotate{
+    File: "path/to/captcha.jpg",
+    Angle: 40,
+    Lang: "en",
+    HintImageFile: "path/to/hint.jpg",
+    HintText: "Put the images in the correct way",
+}
+```
+
+## Other methods
+
+### Send / GetResult
+These methods can be used for manual captcha submission and answer polling.
+
+```go
+id, err := client.Send(cap.ToRequest())
+if err != nil {
+   log.Fatal(err);
+}
+
+time.Sleep(10 * time.Second)
+
+code, err := client.GetResult(id)
+if err != nil {
+   log.Fatal(err);
+}
+
+if code == nil {
+   log.Fatal("Not ready")
+}
+	
+fmt.Println("code "+*code)	
+
+```
+### balance
+Use this method to get your account's balance
+
+```go
+balance, err := client.GetBalance()
+if err != nil {
+   log.Fatal(err);
+}
+```
+### report
+Use this method to report good or bad captcha answer.
+
+```c++
+err := client.Report(id, true) // solved correctly
+err := client.Report(id, false) // solved incorrectly
+
+```
+
+[2Captcha]: https://2captcha.com/
+[2captcha sofware catalog]: https://2captcha.com/software
+[pingback settings]: https://2captcha.com/setting/pingback
+[post options]: https://2captcha.com/2captcha-api#normal_post
+[list of supported languages]: https://2captcha.com/2captcha-api#language
