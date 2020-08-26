@@ -88,6 +88,7 @@ if err != nil {
    log.Fatal(err);
 }
 fmt.Println("code "+code)
+```
 
 ### Normal Captcha
 To bypass a normal captcha (distorted text on image) use the following method. This method also can be used to recognize any text on the image.
@@ -176,6 +177,7 @@ cap := api2captcha.GeeTest{
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
 code, err := client.solve(req)
+```
 
 ### hCaptcha
 Method to solve GeeTest puzzle captcha. Returns a set of tokens as JSON.
