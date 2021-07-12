@@ -163,6 +163,18 @@ func NewClient(apiKey string) *Client {
 	}
 }
 
+func NewClientExt(apiKey string, client *http.Client) *Client {
+	base, _ := url.Parse(BaseURL)
+	return &Client{
+		BaseURL: base,
+		ApiKey:  apiKey,
+		DefaultTimeout: 10,
+		PollingInterval: 10,
+		RecaptchaTimeout: 600,
+		httpClient: client,
+	}
+}
+
 func (c *Client) res(req Request) (*string, error) {
 
 	rel := &url.URL{Path: "/res.php"}
