@@ -156,8 +156,8 @@ func NewClient(apiKey string) *Client {
 	return &Client{
 		BaseURL: base,
 		ApiKey:  apiKey,
-		DefaultTimeout: 10,
-		PollingInterval: 10,
+		DefaultTimeout: 5,
+		PollingInterval: 20,
 		RecaptchaTimeout: 600,
 		httpClient: &http.Client{},
 	}
@@ -168,8 +168,8 @@ func NewClientExt(apiKey string, client *http.Client) *Client {
 	return &Client{
 		BaseURL: base,
 		ApiKey:  apiKey,
-		DefaultTimeout: 10,
-		PollingInterval: 10,
+		DefaultTimeout: 5,
+		PollingInterval: 20,
 		RecaptchaTimeout: 600,
 		httpClient: client,
 	}
