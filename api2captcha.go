@@ -440,9 +440,11 @@ func (c *Canvas) ToRequest() Request {
 	}
 	if c.File != "" {
 		req.Files["file"] = c.File
+		req.Params["method"] = "post"
 	}
 	if c.Base64 != "" {
 		req.Params["body"] = c.Base64
+		req.Params["method"] = "base64"
 	}
 	if c.PreviousId != 0 {
 		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 64)
@@ -473,9 +475,11 @@ func (c *Normal) ToRequest() Request {
 	}
 	if c.File != "" {
 		req.Files["file"] = c.File
+		req.Params["method"] = "post"
 	}
 	if c.Base64 != "" {
 		req.Params["body"] = c.Base64
+		req.Params["method"] = "base64"
 	}
 
 	if c.Phrase {
