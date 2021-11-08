@@ -85,7 +85,15 @@ cap := api2captcha.Normal{
 
 code, err := client.Solve(cap.ToRequest())
 if err != nil {
-   log.Fatal(err);
+	if err == api2captcha.ErrTimeout {
+		log.Fatal("Timeout");
+	} else if err == api2captcha.ErrApi {
+		log.Fatal("API error");
+	} else if err == api2captcha.ErrNetwork {
+		log.Fatal("Network error");
+	} else {
+		log.Fatal(err);
+	}
 }
 fmt.Println("code "+code)
 ```
