@@ -31,6 +31,13 @@ go get -u github.com/2captcha/2captcha-go
 ```
 
 ## Configuration
+
+Import the module like this:
+```go
+import (
+        "github.com/2captcha/2captcha-go"
+)
+```
 `Client` instance can be created like this:
 ```go
 client := api2captcha.NewClient("YOUR_API_KEY")
