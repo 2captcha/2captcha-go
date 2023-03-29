@@ -144,7 +144,7 @@ cap := api2captcha.ReCaptcha{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 ```
 
 ### ReCaptcha v3
@@ -160,7 +160,7 @@ cap := api2captcha.ReCaptcha{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 ```
 
 ### FunCaptcha
@@ -176,7 +176,7 @@ cap := api2captcha.FunCaptcha{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 ```
 
 ### GeeTest
@@ -191,7 +191,7 @@ cap := api2captcha.GeeTest{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 ```
 
 ### hCaptcha
@@ -204,7 +204,7 @@ cap := api2captcha.HCaptcha{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 ```
 
 ### KeyCaptcha
@@ -220,7 +220,7 @@ cap := api2captcha.KeyCaptcha{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 ```
 
 ### Capy
@@ -233,7 +233,7 @@ cap := api2captcha.Capy{
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.solve(req)
+code, err := client.Solve(req)
 
 ```
 
