@@ -34,7 +34,7 @@ type (
 		DefaultTimeout int
 		RecaptchaTimeout int
 		PollingInterval int
-		
+
 		httpClient *http.Client
 	}
 
@@ -113,7 +113,7 @@ type (
 		Calc bool
 		Numberic int
 		MinLen int
-		MaxLen int		
+		MaxLen int
 		Lang string
 		HintText string
 		HintImageBase64 string
@@ -182,7 +182,7 @@ func (c *Client) res(req Request) (*string, error) {
 
 	req.Params["key"] = c.ApiKey
 	c.httpClient.Timeout = time.Duration(c.DefaultTimeout) * time.Second
-	
+
 	var resp *http.Response = nil
 
 	values := url.Values{}
@@ -190,13 +190,13 @@ func (c *Client) res(req Request) (*string, error) {
 		values.Add(key, val)
 	}
 	uri.RawQuery = values.Encode()
-	
+
 	var err error = nil
 	resp, err = http.Get(uri.String())
 	if err != nil {
 		return nil, ErrNetwork
 	}
-	
+
 	defer resp.Body.Close()
 	body := &bytes.Buffer{}
 	_, err = body.ReadFrom(resp.Body)
@@ -286,7 +286,7 @@ func (c *Client) Send(req Request) (string, error) {
 			return "", ErrNetwork
 		}
 	}
-	
+
 	defer resp.Body.Close()
 	body := &bytes.Buffer{}
 	_, err := body.ReadFrom(resp.Body)
@@ -342,7 +342,7 @@ func (c *Client) Solve(req Request) (string, error) {
 		return id, nil
 	}
 
-	timeout := c.DefaultTimeout	
+	timeout := c.DefaultTimeout
 	if req.Params["method"] == "userrecaptcha" {
 		timeout = c.RecaptchaTimeout
 	}
@@ -367,7 +367,7 @@ func (c *Client) WaitForResult(id string, timeout int, interval int) (string, er
 		if err != nil && err != ErrNetwork {
 			return "", err
 		}
-		
+
 		now = time.Now()
 	}
 
@@ -715,7 +715,7 @@ func (c *Rotate) ToRequest() Request {
 		Files: map[string]string{},
 	}
 	if c.File != "" {
-		req.Files["file_1"] = c.File
+		req.Files["file"] = c.File
 	}
 	if c.Files != nil {
 		for i := 0; i < len(c.Files); i++ {
@@ -738,7 +738,7 @@ func (c *Rotate) ToRequest() Request {
 	if c.HintImageFile != "" {
 		req.Files["imginstructions"] = c.HintImageFile
 	}
-	
+
 	return req
 }
 
