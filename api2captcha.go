@@ -34,7 +34,7 @@ type (
 		DefaultTimeout int
 		RecaptchaTimeout int
 		PollingInterval int
-		
+
 		httpClient *http.Client
 	}
 
@@ -113,7 +113,7 @@ type (
 		Calc bool
 		Numberic int
 		MinLen int
-		MaxLen int		
+		MaxLen int
 		Lang string
 		HintText string
 		HintImageBase64 string
@@ -182,7 +182,7 @@ func (c *Client) res(req Request) (*string, error) {
 
 	req.Params["key"] = c.ApiKey
 	c.httpClient.Timeout = time.Duration(c.DefaultTimeout) * time.Second
-	
+
 	var resp *http.Response = nil
 
 	values := url.Values{}
@@ -190,13 +190,13 @@ func (c *Client) res(req Request) (*string, error) {
 		values.Add(key, val)
 	}
 	uri.RawQuery = values.Encode()
-	
+
 	var err error = nil
 	resp, err = http.Get(uri.String())
 	if err != nil {
 		return nil, ErrNetwork
 	}
-	
+
 	defer resp.Body.Close()
 	body := &bytes.Buffer{}
 	_, err = body.ReadFrom(resp.Body)
@@ -286,7 +286,7 @@ func (c *Client) Send(req Request) (string, error) {
 			return "", ErrNetwork
 		}
 	}
-	
+
 	defer resp.Body.Close()
 	body := &bytes.Buffer{}
 	_, err := body.ReadFrom(resp.Body)
@@ -342,7 +342,7 @@ func (c *Client) Solve(req Request) (string, error) {
 		return id, nil
 	}
 
-	timeout := c.DefaultTimeout	
+	timeout := c.DefaultTimeout
 	if req.Params["method"] == "userrecaptcha" {
 		timeout = c.RecaptchaTimeout
 	}
@@ -367,7 +367,7 @@ func (c *Client) WaitForResult(id string, timeout int, interval int) (string, er
 		if err != nil && err != ErrNetwork {
 			return "", err
 		}
-		
+
 		now = time.Now()
 	}
 
@@ -426,7 +426,7 @@ func (req *Request) SetProxy(proxyType string, uri string) {
 }
 
 func (req *Request) SetSoftId(softId int) {
-	req.Params["soft_id"] = strconv.FormatInt(int64(softId), 64)
+	req.Params["soft_id"] = strconv.FormatInt(int64(softId), 36)
 }
 
 func (req *Request) SetCallback(callback string) {
@@ -447,7 +447,7 @@ func (c *Canvas) ToRequest() Request {
 		req.Params["method"] = "base64"
 	}
 	if c.PreviousId != 0 {
-		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 64)
+		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 36)
 	}
 	if c.CanSkip {
 		req.Params["can_no_answer"] = "1"
@@ -492,13 +492,13 @@ func (c *Normal) ToRequest() Request {
 		req.Params["calc"] = "1"
 	}
 	if c.Numberic != 0 {
-		req.Params["numeric"] = strconv.FormatInt(int64(c.Numberic), 64)
+		req.Params["numeric"] = strconv.FormatInt(int64(c.Numberic), 36)
 	}
 	if c.MinLen != 0 {
-		req.Params["min_len"] = strconv.FormatInt(int64(c.MinLen), 64)
+		req.Params["min_len"] = strconv.FormatInt(int64(c.MinLen), 36)
 	}
 	if c.MaxLen != 0 {
-		req.Params["max_len"] = strconv.FormatInt(int64(c.MaxLen), 64)
+		req.Params["max_len"] = strconv.FormatInt(int64(c.MaxLen), 36)
 	}
 
 	if c.Lang != "" {
@@ -619,13 +619,13 @@ func (c *Grid) ToRequest() Request {
 		req.Params["body"] = c.Base64
 	}
 	if c.Rows != 0 {
-		req.Params["recaptcharows"] = strconv.FormatInt(int64(c.Rows), 64)
+		req.Params["recaptcharows"] = strconv.FormatInt(int64(c.Rows), 36)
 	}
 	if c.Cols != 0 {
-		req.Params["recaptchacols"] = strconv.FormatInt(int64(c.Cols), 64)
+		req.Params["recaptchacols"] = strconv.FormatInt(int64(c.Cols), 36)
 	}
 	if c.PreviousId != 0 {
-		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 64)
+		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 36)
 	}
 	if c.CanSkip {
 		req.Params["can_no_answer"] = "1"
@@ -719,12 +719,12 @@ func (c *Rotate) ToRequest() Request {
 	}
 	if c.Files != nil {
 		for i := 0; i < len(c.Files); i++ {
-			name := "file_" + strconv.FormatInt(int64(i) + 1, 64)
+			name := "file_" + strconv.FormatInt(int64(i) + 1, 36)
 			req.Files[name] = c.Files[i]
 		}
 	}
 	if c.Angle != 0 {
-		req.Params["angle"] = strconv.FormatInt(int64(c.Angle), 64)
+		req.Params["angle"] = strconv.FormatInt(int64(c.Angle), 36)
 	}
 	if c.Lang != "" {
 		req.Params["lang"] = c.Lang
@@ -738,7 +738,7 @@ func (c *Rotate) ToRequest() Request {
 	if c.HintImageFile != "" {
 		req.Files["imginstructions"] = c.HintImageFile
 	}
-	
+
 	return req
 }
 
