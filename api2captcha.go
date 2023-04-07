@@ -146,7 +146,7 @@ type (
 	LeminCroppedCaptcha struct {
 		CaptchaId string
 		DivId     string
-		PageURL   string
+		Url   string
 		ApiServer string
 	}
 )
@@ -776,8 +776,8 @@ func (c *LeminCroppedCaptcha) ToRequest() Request {
 		req.Params["div_id"] = "lemin-cropped-captcha"
 	}
 
-	if c.PageURL != "" {
-		req.Params["pageurl"] = c.PageURL
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
 	}
 
 	if c.ApiServer != "" {
