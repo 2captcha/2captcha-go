@@ -143,6 +143,11 @@ type (
 		Text string
 		Lang string
 	}
+
+	GeeTestV4 struct {
+		CaptchaId string
+		Url string
+	}
 )
 
 var (
@@ -755,3 +760,18 @@ func (c *Text) ToRequest() Request {
 
 	return req
 }
+
+func (c *GeeTestV4) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method":"geetest_v4"},
+	}
+	if c.CaptchaId != "" {
+		req.Params["captcha_id"] = c.CaptchaId
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
