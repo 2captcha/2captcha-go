@@ -143,6 +143,11 @@ type (
 		Text string
 		Lang string
 	}
+
+	CloudflareTurnstile struct {
+		SiteKey string
+		Url string
+	}
 )
 
 var (
@@ -755,3 +760,19 @@ func (c *Text) ToRequest() Request {
 
 	return req
 }
+
+func (c *CloudflareTurnstile) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method":"turnstile"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
