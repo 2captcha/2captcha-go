@@ -298,9 +298,9 @@ Use this method to solve Lemin Captcha challenge. Returns JSON with answer conta
 
 ```go
 cap := LeminCroppedCaptcha{
-   CaptchaID: "CROPPED_3dfdd5c_d1872b526b794d83ba3b365eb15a200b",
+   CaptchaId: "CROPPED_3dfdd5c_d1872b526b794d83ba3b365eb15a200b",
    Url:   "https://www.site.com/page/",
-   DivID:     "lemin-cropped-captcha",
+   DivId:     "lemin-cropped-captcha",
    ApiServer: "api.leminnow.com",
 }
 ```
