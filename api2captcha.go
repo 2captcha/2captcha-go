@@ -144,11 +144,11 @@ type (
 		Lang string
 	}
 
-	LeminCaptcha struct {
+	LeminCroppedCaptcha struct {
 		CaptchaID  string
 		DivID      string
 		PageURL    string
-		APIServer   string
+		ApiServer   string
 	}
 )
 
@@ -760,5 +760,30 @@ func (c *Text) ToRequest() Request {
 		req.Params["lang"] = c.Lang
 	}
 
+	return req
+}
+
+func (c *LeminCroppedCaptcha) ToRequest() Request {
+	req := Request{
+		Params:map[string]string{"method":"post"},
+	}
+
+	if c.CaptchaID != "" {
+		req.Params["captcha_id"] = c.CaptchaID
+	}
+
+	if c.DivID != "" {
+		req.Params["div_id"] = c.DivID
+	} else {
+		req.Params["div_id"] = "lemin-cropped-captcha"
+	}
+
+	if c.PageURL != "" {
+		req.Params["pageurl"] = c.PageURL
+	}
+
+	if c.ApiServer != "" {
+		req.Params["api_server"] = c.ApiServer
+	}
 	return req
 }
