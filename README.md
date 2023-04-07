@@ -299,7 +299,7 @@ Use this method to solve Amazon WAF Captcha also known as AWS WAF Captcha is a p
 ```go
 cap := api2captcha.AmazonWAF {
     Iv: "CgAHbCe2GgAAAAAj",
-    Sitekey: "0x1AAAAAAAAkg0s2VIOD34y5",
+    SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
     Url: "https://non-existent-example.execute-api.us-east-1.amazonaws.com/latest",
     Context:
     "9BUgmlm48F92WUoqv97a49ZuEJJ50TCk9MVr3C7WMtQ0X6flVbufM4n8mjFLmbLVAPgaQ1Jydeaja94iAS49ljb",
