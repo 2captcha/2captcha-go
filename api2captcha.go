@@ -426,7 +426,7 @@ func (req *Request) SetProxy(proxyType string, uri string) {
 }
 
 func (req *Request) SetSoftId(softId int) {
-	req.Params["soft_id"] = strconv.FormatInt(int64(softId), 36)
+	req.Params["soft_id"] = strconv.FormatInt(int64(softId), 10)
 }
 
 func (req *Request) SetCallback(callback string) {
@@ -447,7 +447,7 @@ func (c *Canvas) ToRequest() Request {
 		req.Params["method"] = "base64"
 	}
 	if c.PreviousId != 0 {
-		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 36)
+		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 10)
 	}
 	if c.CanSkip {
 		req.Params["can_no_answer"] = "1"
@@ -492,13 +492,13 @@ func (c *Normal) ToRequest() Request {
 		req.Params["calc"] = "1"
 	}
 	if c.Numberic != 0 {
-		req.Params["numeric"] = strconv.FormatInt(int64(c.Numberic), 36)
+		req.Params["numeric"] = strconv.FormatInt(int64(c.Numberic), 10)
 	}
 	if c.MinLen != 0 {
-		req.Params["min_len"] = strconv.FormatInt(int64(c.MinLen), 36)
+		req.Params["min_len"] = strconv.FormatInt(int64(c.MinLen), 10)
 	}
 	if c.MaxLen != 0 {
-		req.Params["max_len"] = strconv.FormatInt(int64(c.MaxLen), 36)
+		req.Params["max_len"] = strconv.FormatInt(int64(c.MaxLen), 10)
 	}
 
 	if c.Lang != "" {
@@ -619,13 +619,13 @@ func (c *Grid) ToRequest() Request {
 		req.Params["body"] = c.Base64
 	}
 	if c.Rows != 0 {
-		req.Params["recaptcharows"] = strconv.FormatInt(int64(c.Rows), 36)
+		req.Params["recaptcharows"] = strconv.FormatInt(int64(c.Rows), 10)
 	}
 	if c.Cols != 0 {
-		req.Params["recaptchacols"] = strconv.FormatInt(int64(c.Cols), 36)
+		req.Params["recaptchacols"] = strconv.FormatInt(int64(c.Cols), 10)
 	}
 	if c.PreviousId != 0 {
-		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 36)
+		req.Params["previousID"] = strconv.FormatInt(int64(c.PreviousId), 10)
 	}
 	if c.CanSkip {
 		req.Params["can_no_answer"] = "1"
@@ -665,7 +665,7 @@ func (c *KeyCaptcha) ToRequest() Request {
 		Params: map[string]string{"method": "keycaptcha"},
 	}
 	if c.UserId != 0 {
-		req.Params["s_s_c_user_id"] = strconv.FormatInt(int64(c.UserId), 64)
+		req.Params["s_s_c_user_id"] = strconv.FormatInt(int64(c.UserId), 10)
 	}
 	if c.SessionId != "" {
 		req.Params["s_s_c_session_id"] = c.SessionId
@@ -719,12 +719,12 @@ func (c *Rotate) ToRequest() Request {
 	}
 	if c.Files != nil {
 		for i := 0; i < len(c.Files); i++ {
-			name := "file_" + strconv.FormatInt(int64(i) + 1, 36)
+			name := "file_" + strconv.FormatInt(int64(i) + 1, 10)
 			req.Files[name] = c.Files[i]
 		}
 	}
 	if c.Angle != 0 {
-		req.Params["angle"] = strconv.FormatInt(int64(c.Angle), 36)
+		req.Params["angle"] = strconv.FormatInt(int64(c.Angle), 10)
 	}
 	if c.Lang != "" {
 		req.Params["lang"] = c.Lang
