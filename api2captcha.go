@@ -715,7 +715,7 @@ func (c *Rotate) ToRequest() Request {
 		Files: map[string]string{},
 	}
 	if c.File != "" {
-		req.Files["file_1"] = c.File
+		req.Files["file"] = c.File
 	}
 	if c.Files != nil {
 		for i := 0; i < len(c.Files); i++ {
