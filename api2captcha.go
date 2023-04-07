@@ -144,8 +144,8 @@ type (
 	}
 
 	LeminCroppedCaptcha struct {
-		CaptchaID string
-		DivID     string
+		CaptchaId string
+		DivId     string
 		PageURL   string
 		ApiServer string
 	}
@@ -766,12 +766,12 @@ func (c *LeminCroppedCaptcha) ToRequest() Request {
 		Params: map[string]string{"method": "lemin"},
 	}
 
-	if c.CaptchaID != "" {
-		req.Params["captcha_id"] = c.CaptchaID
+	if c.CaptchaId != "" {
+		req.Params["captcha_id"] = c.CaptchaId
 	}
 
-	if c.DivID != "" {
-		req.Params["div_id"] = c.DivID
+	if c.DivId != "" {
+		req.Params["div_id"] = c.DivId
 	} else {
 		req.Params["div_id"] = "lemin-cropped-captcha"
 	}
