@@ -143,6 +143,13 @@ type (
 		Text string
 		Lang string
 	}
+
+	LeminCaptcha struct {
+		CaptchaID  string
+		DivID      string
+		PageURL    string
+		APIServer   string
+	}
 )
 
 var (
