@@ -17,6 +17,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Canvas](#canvas)
   - [ClickCaptcha](#clickcaptcha)
   - [Rotate](#rotate)
+  - [GeeTestV4](#gee-test-v4)
 - [Other methods](#other-methods)
   - [send / getResult](#send--getresult)
   - [balance](#balance)
@@ -80,7 +81,7 @@ When you submit any image-based captcha use can provide additional options to he
 |hint_img|-|an image with hint shown to workers with the captcha|
 |hint_text|-|hint or task text shown to workers with the captcha|
 
-Below you can find basic examples for every captcha type, check out the code below. 
+Below you can find basic examples for every captcha type, check out the code below.
 
 ### Basic example
 Example below shows a basic solver call example with error handling.
@@ -172,7 +173,7 @@ cap := api2captcha.FunCaptcha{
    Url: "https://mysite.com/page/with/funcaptcha",
    Surl: "https://client-api.arkoselabs.com",
    UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
-   Data: map[string]string{"anyKey":"anyValue"},   
+   Data: map[string]string{"anyKey":"anyValue"},
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
@@ -200,7 +201,7 @@ Method to solve GeeTest puzzle captcha. Returns a set of tokens as JSON.
 ```go
 cap := api2captcha.HCaptcha{
    SiteKey: "10000000-ffff-ffff-ffff-000000000001",
-   Url: "https://mysite.com/captcha.html",   
+   Url: "https://mysite.com/captcha.html",
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
@@ -216,7 +217,7 @@ cap := api2captcha.KeyCaptcha{
    SessionId: "493e52c37c10c2bcdf4a00cbc9ccd1e8",
    WebServerSign: "9006dc725760858e4c0715b835472f22",
    WebServerSign2: "9006dc725760858e4c0715b835472f22",
-   Url: "https://www.keycaptcha.ru/demo-magnetic/",   
+   Url: "https://www.keycaptcha.ru/demo-magnetic/",
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
@@ -229,7 +230,7 @@ Token-based method to bypass Capy puzzle captcha.
 ```go
 cap := api2captcha.Capy{
    SiteKey: "PUZZLE_Abc1dEFghIJKLM2no34P56q7rStu8v",
-   Url: "https://www.mysite.com/captcha/",   
+   Url: "https://www.mysite.com/captcha/",
 }
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
@@ -291,6 +292,15 @@ cap := api2captcha.Rotate{
     HintText: "Put the images in the correct way",
 }
 ```
+### GeeTestV4
+Use this method to solve GeeTest v4. Returns the response in JSON.
+
+```go
+cap := api2captcha.GeeTestV4{
+    CaptchaId: "e392e1d7fd421dc63325744d5a2b9c73",
+    Url: "https://www.site.com/page/",
+}
+```
 
 ## Other methods
 
@@ -313,8 +323,8 @@ if err != nil {
 if code == nil {
    log.Fatal("Not ready")
 }
-	
-fmt.Println("code "+*code)	
+
+fmt.Println("code "+*code)
 
 ```
 ### balance
