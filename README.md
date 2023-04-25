@@ -17,6 +17,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Canvas](#canvas)
   - [ClickCaptcha](#clickcaptcha)
   - [Rotate](#rotate)
+  - [Lemin Cropped Captcha](#lemin-captcha)
   - [GeeTestV4](#gee-test-v4)
 - [Other methods](#other-methods)
   - [send / getResult](#send--getresult)
@@ -299,6 +300,18 @@ Use this method to solve GeeTest v4. Returns the response in JSON.
 cap := api2captcha.GeeTestV4{
     CaptchaId: "e392e1d7fd421dc63325744d5a2b9c73",
     Url: "https://www.site.com/page/",
+}
+```
+
+### Lemin Cropped Captcha
+Use this method to solve Lemin Captcha challenge. Returns JSON with answer containing the following values: answer, challenge_id.
+
+```go
+cap := Lemin{
+   CaptchaId: "CROPPED_3dfdd5c_d1872b526b794d83ba3b365eb15a200b",
+   Url:   "https://www.site.com/page/",
+   DivId:     "lemin-cropped-captcha",
+   ApiServer: "api.leminnow.com",
 }
 ```
 
