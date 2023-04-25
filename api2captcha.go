@@ -148,7 +148,7 @@ type (
 		Url string
 	}
 
-	LeminCroppedCaptcha struct {
+	Lemin struct {
 		CaptchaId string
 		DivId     string
 		Url   string
