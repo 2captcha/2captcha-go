@@ -143,12 +143,17 @@ type (
 		Lang string
 	}
 
+	GeeTestV4 struct {
+		CaptchaId string
+		Url string
+	}
+
 	LeminCroppedCaptcha struct {
 		CaptchaId string
 		DivId     string
 		Url   string
 		ApiServer string
-	}
+	}	
 )
 
 var (
@@ -761,7 +766,21 @@ func (c *Text) ToRequest() Request {
 	return req
 }
 
-func (c *LeminCroppedCaptcha) ToRequest() Request {
+func (c *GeeTestV4) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method":"geetest_v4"},
+	}
+	if c.CaptchaId != "" {
+		req.Params["captcha_id"] = c.CaptchaId
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Lemin) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "lemin"},
 	}

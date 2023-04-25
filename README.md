@@ -18,6 +18,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [ClickCaptcha](#clickcaptcha)
   - [Rotate](#rotate)
   - [Lemin Cropped Captcha](#lemin-captcha)
+  - [GeeTestV4](#gee-test-v4)
 - [Other methods](#other-methods)
   - [send / getResult](#send--getresult)
   - [balance](#balance)
@@ -290,6 +291,15 @@ cap := api2captcha.Rotate{
     Lang: "en",
     HintImageFile: "path/to/hint.jpg",
     HintText: "Put the images in the correct way",
+}
+```
+### GeeTestV4
+Use this method to solve GeeTest v4. Returns the response in JSON.
+
+```go
+cap := api2captcha.GeeTestV4{
+    CaptchaId: "e392e1d7fd421dc63325744d5a2b9c73",
+    Url: "https://www.site.com/page/",
 }
 ```
 
