@@ -154,6 +154,11 @@ type (
 		Url       string
 		ApiServer string
 	}
+
+	CloudflareTurnstile struct {
+		SiteKey string
+		Url     string
+	}
 )
 
 var (
@@ -802,5 +807,20 @@ func (c *Lemin) ToRequest() Request {
 	if c.ApiServer != "" {
 		req.Params["api_server"] = c.ApiServer
 	}
+	return req
+}
+
+func (c *CloudflareTurnstile) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "turnstile"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
 	return req
 }
