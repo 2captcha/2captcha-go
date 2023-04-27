@@ -145,15 +145,20 @@ type (
 
 	GeeTestV4 struct {
 		CaptchaId string
-		Url string
+		Url       string
 	}
 
 	Lemin struct {
 		CaptchaId string
 		DivId     string
-		Url   string
+		Url       string
 		ApiServer string
-	}	
+	}
+
+	CloudflareTurnstile struct {
+		SiteKey string
+		Url     string
+	}
 )
 
 var (
@@ -768,7 +773,7 @@ func (c *Text) ToRequest() Request {
 
 func (c *GeeTestV4) ToRequest() Request {
 	req := Request{
-		Params: map[string]string{"method":"geetest_v4"},
+		Params: map[string]string{"method": "geetest_v4"},
 	}
 	if c.CaptchaId != "" {
 		req.Params["captcha_id"] = c.CaptchaId
@@ -802,5 +807,20 @@ func (c *Lemin) ToRequest() Request {
 	if c.ApiServer != "" {
 		req.Params["api_server"] = c.ApiServer
 	}
+	return req
+}
+
+func (c *CloudflareTurnstile) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "turnstile"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
 	return req
 }

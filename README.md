@@ -17,6 +17,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Canvas](#canvas)
   - [ClickCaptcha](#clickcaptcha)
   - [Rotate](#rotate)
+  - [CloudflareTurnstile](#cloudflare-turnstile)
   - [Lemin Cropped Captcha](#lemin-cropped-captcha)
   - [GeeTestV4](#geetestv4)
 - [Other methods](#other-methods)
@@ -312,6 +313,16 @@ cap := Lemin{
    Url:   "https://www.site.com/page/",
    DivId:     "lemin-cropped-captcha",
    ApiServer: "api.leminnow.com",
+}
+```
+
+### CloudflareTurnstile
+Use this method to solve Cloudflare Turnstile. Returns JSON with the token.
+
+```go
+cap := api2captcha.CloudflareTurnstile{
+   SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
+   Url: "http://mysite.com/",
 }
 ```
 
