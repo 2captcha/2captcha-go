@@ -17,6 +17,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Canvas](#canvas)
   - [ClickCaptcha](#clickcaptcha)
   - [Rotate](#rotate)
+  - [AmazonWAF](#amazon-waf)
   - [CloudflareTurnstile](#cloudflare-turnstile)
   - [Lemin Cropped Captcha](#lemin-cropped-captcha)
   - [GeeTestV4](#geetestv4)
@@ -323,6 +324,21 @@ Use this method to solve Cloudflare Turnstile. Returns JSON with the token.
 cap := api2captcha.CloudflareTurnstile{
    SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
    Url: "http://mysite.com/",
+}
+```
+
+### Amazon WAF
+Use this method to solve Amazon WAF Captcha also known as AWS WAF Captcha is a part of Intelligent threat mitigation for Amazon AWS. Returns JSON with the token.
+
+```go
+cap := api2captcha.AmazonWAF {
+    Iv: "CgAHbCe2GgAAAAAj",
+    SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
+    Url: "https://non-existent-example.execute-api.us-east-1.amazonaws.com/latest",
+    Context: "9BUgmlm48F92WUoqv97a49ZuEJJ50TCk9MVr3C7WMtQ0X6flVbufM4n8mjFLmbLVAPgaQ1Jydeaja94iAS49ljb",
+    ChallengeScript: "https://41bcdd4fb3cb.610cd090.us-east-1.token.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/challenge.js"
+    CaptchaScript: "https://41bcdd4fb3cb.610cd090.us-east-1.captcha.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/captcha.js"
+
 }
 ```
 
