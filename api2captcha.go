@@ -149,6 +149,8 @@ type (
 		SiteKey string
 		Url string
 		Context string
+		ChallengeScript string
+		CaptchaScript string
 	}
 )
 
@@ -782,6 +784,14 @@ func (c *	AmazonWAF ) ToRequest() Request {
 
 	if c.Context != "" {
 		req.Params["context"] = c.Context
+	}
+
+	if c.ChallengeScript != "" {
+		req.Params["challenge_script"] = c.ChallengeScript
+	}
+
+	if c.CaptchaScript != "" {
+		req.Params["captcha_script"] = c.CaptchaScript
 	}
 
 	return req

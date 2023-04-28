@@ -301,8 +301,10 @@ cap := api2captcha.AmazonWAF {
     Iv: "CgAHbCe2GgAAAAAj",
     SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
     Url: "https://non-existent-example.execute-api.us-east-1.amazonaws.com/latest",
-    Context:
-    "9BUgmlm48F92WUoqv97a49ZuEJJ50TCk9MVr3C7WMtQ0X6flVbufM4n8mjFLmbLVAPgaQ1Jydeaja94iAS49ljb",
+    Context: "9BUgmlm48F92WUoqv97a49ZuEJJ50TCk9MVr3C7WMtQ0X6flVbufM4n8mjFLmbLVAPgaQ1Jydeaja94iAS49ljb",
+    ChallengeScript: "https://41bcdd4fb3cb.610cd090.us-east-1.token.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/challenge.js"
+    CaptchaScript: "https://41bcdd4fb3cb.610cd090.us-east-1.captcha.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/captcha.js"
+
 }
 ```
 
