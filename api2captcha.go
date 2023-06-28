@@ -123,6 +123,7 @@ type (
 		SiteKey   string
 		Url       string
 		Invisible bool
+		Enterprise bool
 		Version   string
 		Action    string
 		Score     float64
@@ -710,6 +711,9 @@ func (c *ReCaptcha) ToRequest() Request {
 	}
 	if c.Invisible {
 		req.Params["invisible"] = "1"
+	}
+	if c.Enterprise {
+		req.Params["enterprise"] = "1"
 	}
 	if c.Version != "" {
 		req.Params["version"] = c.Version

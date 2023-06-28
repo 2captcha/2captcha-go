@@ -8,6 +8,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Text](#text-captcha)
   - [ReCaptcha v2](#recaptcha-v2)
   - [ReCaptcha v3](#recaptcha-v3)
+  - [reCAPTCHA Enterprise](#recaptcha-enterprise)
   - [FunCaptcha](#funcaptcha)
   - [GeeTest](#geetest)
   - [hCaptcha](#hcaptcha)
@@ -161,6 +162,34 @@ cap := api2captcha.ReCaptcha{
    Action: "verify",
    Score: 0.3,
 }
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.Solve(req)
+```
+
+### reCAPTCHA Enterprise
+reCAPTCHA Enterprise can be used as reCAPTCHA V2 and reCAPTCHA V3. Below is a usage example for both versions.
+
+```go
+// reCAPTCHA V2
+cap :=  api2captcha.ReCaptcha({
+   SiteKey: "6Le-wvkSVVABCPBMRTvw0Q4Muexq1bi0DJwx_mJ-",
+   Url: "https://mysite.com/page/with/recaptcha",
+   Invisible: true,
+   Action: "verify",
+   Enterprise: true,
+})
+
+// reCAPTCHA V3
+cap := api2captcha.ReCaptcha{
+   SiteKey: "6Le-wvkSVVABCPBMRTvw0Q4Muexq1bi0DJwx_mJ-",
+   Url: "https://mysite.com/page/with/recaptcha",
+   Version: "v3",
+   Action: "verify",
+   Score: 0.3,
+   Enterprise: true,
+}
+
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
 code, err := client.Solve(req)
