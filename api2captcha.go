@@ -125,6 +125,7 @@ type (
 		Enterprise bool
 		Version   string
 		Action    string
+		DataS     string
 		Score     float64
 	}
 
@@ -726,6 +727,9 @@ func (c *ReCaptcha) ToRequest() Request {
 	}
 	if c.Action != "" {
 		req.Params["action"] = c.Action
+	}
+	if c.DataS != "" {
+		req.Params["data-s"] = c.DataS
 	}
 	if c.Score != 0 {
 		req.Params["min_score"] = strconv.FormatFloat(c.Score, 'f', -1, 64)
