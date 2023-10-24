@@ -20,6 +20,9 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [CloudflareTurnstile](#cloudflare-turnstile)
   - [Lemin Cropped Captcha](#lemin-cropped-captcha)
   - [GeeTestV4](#geetestv4)
+  - [CyberSiARA](#cyber-siara)
+  - [DataDome](#data-dome)
+  - [MTCaptcha](#mtcaptcha)
 - [Other methods](#other-methods)
   - [send / getResult](#send--getresult)
   - [balance](#balance)
@@ -323,6 +326,36 @@ Use this method to solve Cloudflare Turnstile. Returns JSON with the token.
 cap := api2captcha.CloudflareTurnstile{
    SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
    Url: "http://mysite.com/",
+}
+```
+
+### CyberSiARA
+Use this method to solve CyberSiARA and obtain a token to bypass the protection.
+```go
+cap := api2captcha.CyberSiARA{
+   MasterUrlId: "12333-3123123",
+   Url: "https://test.com",
+}
+```
+
+### DataDome
+Use this method to solve DataDome and obtain a token to bypass the protection.
+To solve the DataDome captcha, you must use a proxy.
+```go
+cap := api2captcha.DataDome{
+  Url: "https://test.com",
+  CaptchaUrl: "https://test.com/captcha/",
+  Proxytype: "http",
+  Proxy: "proxyuser:strongPassword@123.123.123.123:3128",
+}
+```
+
+### MTCaptcha
+Use this method to solve MTCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.MTCaptcha{
+  Url: "https://service.mtcaptcha.com/mtcv1/demo/index.html",
+  SiteKey: "MTPublic-DemoKey9M",
 }
 ```
 
