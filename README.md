@@ -335,6 +335,7 @@ Use this method to solve CyberSiARA and obtain a token to bypass the protection.
 cap := api2captcha.CyberSiARA{
    MasterUrlId: "12333-3123123",
    Url: "https://test.com",
+   UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
 }
 ```
 
@@ -347,6 +348,7 @@ cap := api2captcha.DataDome{
   CaptchaUrl: "https://test.com/captcha/",
   Proxytype: "http",
   Proxy: "proxyuser:strongPassword@123.123.123.123:3128",
+  UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
 }
 ```
 

@@ -163,6 +163,7 @@ type (
 	CyberSiARA struct {
 		MasterUrlId string
 		Url         string
+		UserAgent   string
 	}
 
 	DataDome struct {
@@ -170,6 +171,7 @@ type (
 		CaptchaUrl string
 		Proxytype  string
 		Proxy      string
+		UserAgent  string
 	}
 
 	MTCaptcha struct {
@@ -853,6 +855,9 @@ func (c *CyberSiARA) ToRequest() Request {
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
 	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
 
 	return req
 }
@@ -873,6 +878,9 @@ func (c *DataDome) ToRequest() Request {
 	}
 	if c.Proxy != "" {
 		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
 	}
 
 	return req
