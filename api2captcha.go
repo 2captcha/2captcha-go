@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"io"
-	"log"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -123,8 +122,10 @@ type (
 		SiteKey   string
 		Url       string
 		Invisible bool
+		Enterprise bool
 		Version   string
 		Action    string
+		DataS     string
 		Score     float64
 	}
 
@@ -141,6 +142,15 @@ type (
 	Text struct {
 		Text string
 		Lang string
+	}
+
+	AmazonWAF struct {
+		Iv string
+		SiteKey string
+		Url string
+		Context string
+		ChallengeScript string
+		CaptchaScript string
 	}
 
 	GeeTestV4 struct {
@@ -239,7 +249,6 @@ func (c *Client) res(req Request) (*string, error) {
 		return nil, err
 	}
 	data := body.String()
-	log.Println("Status " + resp.Status + " data " + data)
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, ErrApi
@@ -329,7 +338,6 @@ func (c *Client) Send(req Request) (string, error) {
 		return "", err
 	}
 	data := body.String()
-	log.Println("Status " + resp.Status + " data " + data)
 
 	if resp.StatusCode != http.StatusOK {
 		return "", ErrApi
@@ -730,11 +738,17 @@ func (c *ReCaptcha) ToRequest() Request {
 	if c.Invisible {
 		req.Params["invisible"] = "1"
 	}
+	if c.Enterprise {
+		req.Params["enterprise"] = "1"
+	}
 	if c.Version != "" {
 		req.Params["version"] = c.Version
 	}
 	if c.Action != "" {
 		req.Params["action"] = c.Action
+	}
+	if c.DataS != "" {
+		req.Params["data-s"] = c.DataS
 	}
 	if c.Score != 0 {
 		req.Params["min_score"] = strconv.FormatFloat(c.Score, 'f', -1, 64)
@@ -785,6 +799,38 @@ func (c *Text) ToRequest() Request {
 	}
 	if c.Lang != "" {
 		req.Params["lang"] = c.Lang
+	}
+
+	return req
+}
+
+func (c *	AmazonWAF ) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method":"amazon_waf"},
+	}
+
+	if c.Iv != "" {
+		req.Params["iv"] = c.Iv
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	if c.Context != "" {
+		req.Params["context"] = c.Context
+	}
+
+	if c.ChallengeScript != "" {
+		req.Params["challenge_script"] = c.ChallengeScript
+	}
+
+	if c.CaptchaScript != "" {
+		req.Params["captcha_script"] = c.CaptchaScript
 	}
 
 	return req
