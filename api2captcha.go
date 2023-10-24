@@ -169,6 +169,25 @@ type (
 		SiteKey string
 		Url     string
 	}
+
+	CyberSiARA struct {
+		MasterUrlId string
+		Url         string
+		UserAgent   string
+	}
+
+	DataDome struct {
+		Url        string
+		CaptchaUrl string
+		Proxytype  string
+		Proxy      string
+		UserAgent  string
+	}
+
+	MTCaptcha struct {
+		SiteKey string
+		Url     string
+	}
 )
 
 var (
@@ -859,6 +878,63 @@ func (c *Lemin) ToRequest() Request {
 func (c *CloudflareTurnstile) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "turnstile"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *CyberSiARA) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "cybersiara"},
+	}
+
+	if c.MasterUrlId != "" {
+		req.Params["master_url_id"] = c.MasterUrlId
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *DataDome) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "datadome"},
+	}
+
+	if c.CaptchaUrl != "" {
+		req.Params["captcha_url"] = c.CaptchaUrl
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *MTCaptcha) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "mt_captcha"},
 	}
 
 	if c.SiteKey != "" {
