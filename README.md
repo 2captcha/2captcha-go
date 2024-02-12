@@ -391,6 +391,15 @@ cap := api2captcha.MTCaptcha{
 }
 ```
 
+### Yandex
+Use this method to solve MTCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.Yandex{
+  Url: "https://rutube.ru",
+  SiteKey: "Y5Lh0tiycconMJGsFd3EbbuNKSp1yaZESUOIHfeV",
+}
+```
+
 ### Amazon WAF
 Use this method to solve Amazon WAF Captcha also known as AWS WAF Captcha is a part of Intelligent threat mitigation for Amazon AWS. Returns JSON with the token.
 

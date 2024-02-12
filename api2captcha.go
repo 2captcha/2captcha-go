@@ -188,6 +188,11 @@ type (
 		SiteKey string
 		Url     string
 	}
+
+	Yandex struct {
+		Url     string
+		SiteKey string
+	}
 )
 
 var (
@@ -935,6 +940,21 @@ func (c *DataDome) ToRequest() Request {
 func (c *MTCaptcha) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "mt_captcha"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Yandex) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "yandex"},
 	}
 
 	if c.SiteKey != "" {
