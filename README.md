@@ -8,6 +8,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Text](#text-captcha)
   - [ReCaptcha v2](#recaptcha-v2)
   - [ReCaptcha v3](#recaptcha-v3)
+  - [reCAPTCHA Enterprise](#recaptcha-enterprise)
   - [FunCaptcha](#funcaptcha)
   - [GeeTest](#geetest)
   - [hCaptcha](#hcaptcha)
@@ -17,9 +18,13 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [Canvas](#canvas)
   - [ClickCaptcha](#clickcaptcha)
   - [Rotate](#rotate)
+  - [AmazonWAF](#amazon-waf)
   - [CloudflareTurnstile](#cloudflare-turnstile)
   - [Lemin Cropped Captcha](#lemin-cropped-captcha)
   - [GeeTestV4](#geetestv4)
+  - [CyberSiARA](#cyber-siara)
+  - [DataDome](#data-dome)
+  - [MTCaptcha](#mtcaptcha)
 - [Other methods](#other-methods)
   - [send / getResult](#send--getresult)
   - [balance](#balance)
@@ -161,6 +166,34 @@ cap := api2captcha.ReCaptcha{
    Action: "verify",
    Score: 0.3,
 }
+req := cap.ToRequest()
+req.SetProxy("HTTPS", "login:password@IP_address:PORT")
+code, err := client.Solve(req)
+```
+
+### reCAPTCHA Enterprise
+reCAPTCHA Enterprise can be used as reCAPTCHA V2 and reCAPTCHA V3. Below is a usage example for both versions.
+
+```go
+// reCAPTCHA V2
+cap :=  api2captcha.ReCaptcha({
+   SiteKey: "6Le-wvkSVVABCPBMRTvw0Q4Muexq1bi0DJwx_mJ-",
+   Url: "https://mysite.com/page/with/recaptcha",
+   Invisible: true,
+   Action: "verify",
+   Enterprise: true,
+})
+
+// reCAPTCHA V3
+cap := api2captcha.ReCaptcha{
+   SiteKey: "6Le-wvkSVVABCPBMRTvw0Q4Muexq1bi0DJwx_mJ-",
+   Url: "https://mysite.com/page/with/recaptcha",
+   Version: "v3",
+   Action: "verify",
+   Score: 0.3,
+   Enterprise: true,
+}
+
 req := cap.ToRequest()
 req.SetProxy("HTTPS", "login:password@IP_address:PORT")
 code, err := client.Solve(req)
@@ -323,6 +356,80 @@ Use this method to solve Cloudflare Turnstile. Returns JSON with the token.
 cap := api2captcha.CloudflareTurnstile{
    SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
    Url: "http://mysite.com/",
+}
+```
+
+### CyberSiARA
+Use this method to solve CyberSiARA and obtain a token to bypass the protection.
+```go
+cap := api2captcha.CyberSiARA{
+   MasterUrlId: "12333-3123123",
+   Url: "https://test.com",
+   UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+}
+```
+
+### DataDome
+Use this method to solve DataDome and obtain a token to bypass the protection.
+To solve the DataDome captcha, you must use a proxy.
+```go
+cap := api2captcha.DataDome{
+  Url: "https://test.com",
+  CaptchaUrl: "https://test.com/captcha/",
+  Proxytype: "http",
+  Proxy: "proxyuser:strongPassword@123.123.123.123:3128",
+  UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+}
+```
+
+### MTCaptcha
+Use this method to solve MTCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.MTCaptcha{
+  Url: "https://service.mtcaptcha.com/mtcv1/demo/index.html",
+  SiteKey: "MTPublic-DemoKey9M",
+}
+```
+
+### Yandex
+Use this method to solve Yandex and obtain a token to bypass the protection.
+```go
+cap := api2captcha.Yandex{
+  Url: "https://rutube.ru",
+  SiteKey: "Y5Lh0tiycconMJGsFd3EbbuNKSp1yaZESUOIHfeV",
+}
+```
+
+### Friendly Captcha
+Use this method to solve Friendly Captcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.Friendly{
+  Url: "https://example.com",
+  SiteKey: "2FZFEVS1FZCGQ9",
+}
+```
+
+### CutCaptcha
+Use this method to solve CutCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.CutCaptcha{
+   MiseryKey: "a1488b66da00bf332a1488993a5443c79047e752",
+   DataApiKey: "SAb83IIB",
+   Url: "https://example.cc/foo/bar.html",
+}
+```
+
+### Amazon WAF
+Use this method to solve Amazon WAF Captcha also known as AWS WAF Captcha is a part of Intelligent threat mitigation for Amazon AWS. Returns JSON with the token.
+
+```go
+cap := api2captcha.AmazonWAF {
+    Iv: "CgAHbCe2GgAAAAAj",
+    SiteKey: "0x1AAAAAAAAkg0s2VIOD34y5",
+    Url: "https://non-existent-example.execute-api.us-east-1.amazonaws.com/latest",
+    Context: "9BUgmlm48F92WUoqv97a49ZuEJJ50TCk9MVr3C7WMtQ0X6flVbufM4n8mjFLmbLVAPgaQ1Jydeaja94iAS49ljb",
+    ChallengeScript: "https://41bcdd4fb3cb.610cd090.us-east-1.token.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/challenge.js"
+    CaptchaScript: "https://41bcdd4fb3cb.610cd090.us-east-1.captcha.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/captcha.js"
 }
 ```
 

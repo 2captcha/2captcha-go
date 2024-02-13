@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"io"
-	"log"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -123,8 +122,10 @@ type (
 		SiteKey   string
 		Url       string
 		Invisible bool
+		Enterprise bool
 		Version   string
 		Action    string
+		DataS     string
 		Score     float64
 	}
 
@@ -143,6 +144,15 @@ type (
 		Lang string
 	}
 
+	AmazonWAF struct {
+		Iv string
+		SiteKey string
+		Url string
+		Context string
+		ChallengeScript string
+		CaptchaScript string
+	}
+
 	GeeTestV4 struct {
 		CaptchaId string
 		Url       string
@@ -158,6 +168,41 @@ type (
 	CloudflareTurnstile struct {
 		SiteKey string
 		Url     string
+	}
+
+	CyberSiARA struct {
+		MasterUrlId string
+		Url         string
+		UserAgent   string
+	}
+
+	DataDome struct {
+		Url        string
+		CaptchaUrl string
+		Proxytype  string
+		Proxy      string
+		UserAgent  string
+	}
+
+	MTCaptcha struct {
+		SiteKey string
+		Url     string
+	}
+
+	Yandex struct {
+		Url     string
+		SiteKey string
+	}
+
+	Friendly struct {
+		Url     string
+		SiteKey string
+	}
+
+	CutCaptcha struct {
+		MiseryKey string
+		DataApiKey    string
+		Url       string
 	}
 )
 
@@ -220,7 +265,6 @@ func (c *Client) res(req Request) (*string, error) {
 		return nil, err
 	}
 	data := body.String()
-	log.Println("Status " + resp.Status + " data " + data)
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, ErrApi
@@ -310,7 +354,6 @@ func (c *Client) Send(req Request) (string, error) {
 		return "", err
 	}
 	data := body.String()
-	log.Println("Status " + resp.Status + " data " + data)
 
 	if resp.StatusCode != http.StatusOK {
 		return "", ErrApi
@@ -711,11 +754,17 @@ func (c *ReCaptcha) ToRequest() Request {
 	if c.Invisible {
 		req.Params["invisible"] = "1"
 	}
+	if c.Enterprise {
+		req.Params["enterprise"] = "1"
+	}
 	if c.Version != "" {
 		req.Params["version"] = c.Version
 	}
 	if c.Action != "" {
 		req.Params["action"] = c.Action
+	}
+	if c.DataS != "" {
+		req.Params["data-s"] = c.DataS
 	}
 	if c.Score != 0 {
 		req.Params["min_score"] = strconv.FormatFloat(c.Score, 'f', -1, 64)
@@ -771,6 +820,38 @@ func (c *Text) ToRequest() Request {
 	return req
 }
 
+func (c *	AmazonWAF ) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method":"amazon_waf"},
+	}
+
+	if c.Iv != "" {
+		req.Params["iv"] = c.Iv
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	if c.Context != "" {
+		req.Params["context"] = c.Context
+	}
+
+	if c.ChallengeScript != "" {
+		req.Params["challenge_script"] = c.ChallengeScript
+	}
+
+	if c.CaptchaScript != "" {
+		req.Params["captcha_script"] = c.CaptchaScript
+	}
+
+	return req
+}
+
 func (c *GeeTestV4) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "geetest_v4"},
@@ -817,6 +898,112 @@ func (c *CloudflareTurnstile) ToRequest() Request {
 
 	if c.SiteKey != "" {
 		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *CyberSiARA) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "cybersiara"},
+	}
+
+	if c.MasterUrlId != "" {
+		req.Params["master_url_id"] = c.MasterUrlId
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *DataDome) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "datadome"},
+	}
+
+	if c.CaptchaUrl != "" {
+		req.Params["captcha_url"] = c.CaptchaUrl
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *MTCaptcha) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "mt_captcha"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Yandex) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "yandex"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+
+func (c *Friendly) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "friendly_captcha"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *CutCaptcha) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "cutcaptcha"},
+	}
+
+	if c.MiseryKey != "" {
+		req.Params["misery_key"] = c.MiseryKey
+	}
+	if c.DataApiKey != "" {
+		req.Params["api_key"] = c.DataApiKey
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
