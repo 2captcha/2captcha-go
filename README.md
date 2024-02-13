@@ -392,7 +392,7 @@ cap := api2captcha.MTCaptcha{
 ```
 
 ### Yandex
-Use this method to solve MTCaptcha and obtain a token to bypass the protection.
+Use this method to solve Yandex and obtain a token to bypass the protection.
 ```go
 cap := api2captcha.Yandex{
   Url: "https://rutube.ru",
@@ -401,11 +401,21 @@ cap := api2captcha.Yandex{
 ```
 
 ### Friendly Captcha
-Use this method to solve MTCaptcha and obtain a token to bypass the protection.
+Use this method to solve Friendly Captcha and obtain a token to bypass the protection.
 ```go
 cap := api2captcha.Friendly{
   Url: "https://example.com",
   SiteKey: "2FZFEVS1FZCGQ9",
+}
+```
+
+### CutCaptcha
+Use this method to solve CutCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.CutCaptcha{
+   MiseryKey: "a1488b66da00bf332a1488993a5443c79047e752",
+   DataApiKey: "SAb83IIB",
+   Url: "https://example.cc/foo/bar.html",
 }
 ```
 
