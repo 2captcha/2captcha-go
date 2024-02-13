@@ -391,6 +391,34 @@ cap := api2captcha.MTCaptcha{
 }
 ```
 
+### Yandex
+Use this method to solve Yandex and obtain a token to bypass the protection.
+```go
+cap := api2captcha.Yandex{
+  Url: "https://rutube.ru",
+  SiteKey: "Y5Lh0tiycconMJGsFd3EbbuNKSp1yaZESUOIHfeV",
+}
+```
+
+### Friendly Captcha
+Use this method to solve Friendly Captcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.Friendly{
+  Url: "https://example.com",
+  SiteKey: "2FZFEVS1FZCGQ9",
+}
+```
+
+### CutCaptcha
+Use this method to solve CutCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.CutCaptcha{
+   MiseryKey: "a1488b66da00bf332a1488993a5443c79047e752",
+   DataApiKey: "SAb83IIB",
+   Url: "https://example.cc/foo/bar.html",
+}
+```
+
 ### Amazon WAF
 Use this method to solve Amazon WAF Captcha also known as AWS WAF Captcha is a part of Intelligent threat mitigation for Amazon AWS. Returns JSON with the token.
 
