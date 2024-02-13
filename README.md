@@ -400,6 +400,15 @@ cap := api2captcha.Yandex{
 }
 ```
 
+### Friendly Captcha
+Use this method to solve MTCaptcha and obtain a token to bypass the protection.
+```go
+cap := api2captcha.Friendly{
+  Url: "https://example.com",
+  SiteKey: "2FZFEVS1FZCGQ9",
+}
+```
+
 ### Amazon WAF
 Use this method to solve Amazon WAF Captcha also known as AWS WAF Captcha is a part of Intelligent threat mitigation for Amazon AWS. Returns JSON with the token.
 

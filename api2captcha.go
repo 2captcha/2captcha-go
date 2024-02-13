@@ -193,6 +193,11 @@ type (
 		Url     string
 		SiteKey string
 	}
+
+	Friendly struct {
+		Url     string
+		SiteKey string
+	}
 )
 
 var (
@@ -955,6 +960,22 @@ func (c *MTCaptcha) ToRequest() Request {
 func (c *Yandex) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "yandex"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+
+func (c *Friendly) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "friendly_captcha"},
 	}
 
 	if c.SiteKey != "" {
