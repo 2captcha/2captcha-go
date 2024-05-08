@@ -188,6 +188,22 @@ type (
 		SiteKey string
 		Url     string
 	}
+
+	Yandex struct {
+		Url     string
+		SiteKey string
+	}
+
+	Friendly struct {
+		Url     string
+		SiteKey string
+	}
+
+	CutCaptcha struct {
+		MiseryKey string
+		DataApiKey    string
+		Url       string
+	}
 )
 
 var (
@@ -939,6 +955,55 @@ func (c *MTCaptcha) ToRequest() Request {
 
 	if c.SiteKey != "" {
 		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Yandex) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "yandex"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+
+func (c *Friendly) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "friendly_captcha"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *CutCaptcha) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "cutcaptcha"},
+	}
+
+	if c.MiseryKey != "" {
+		req.Params["misery_key"] = c.MiseryKey
+	}
+	if c.DataApiKey != "" {
+		req.Params["api_key"] = c.DataApiKey
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
