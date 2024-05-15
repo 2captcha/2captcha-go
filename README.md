@@ -29,7 +29,7 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [send / getResult](#send--getresult)
   - [balance](#balance)
   - [report](#report)
-
+- [Proxies](#proxies)
 
 ## Installation
 To install the api client, use this:
@@ -476,6 +476,13 @@ err := client.Report(id, false) // solved incorrectly
 
 ```
 
+## Proxies
+You can pass your proxy as an additional argument for methods: recaptcha, funcaptcha, geetest, geetest v4, hcaptcha, keycaptcha, capy puzzle, lemin, turnstile, amazon waf, CyberSiARA, DataDome, MTCaptcha and etc. The proxy will be forwarded to the API to solve the captcha.
+
+We have our own proxies that we can offer you. [Buy residential proxies](https://2captcha.com/proxy/residential-proxies) for avoid restrictions and blocks. [Quick start](https://2captcha.com/proxy?openAddTrafficModal=true).
+
+
+<!-- Shared links -->
 [2Captcha]: https://2captcha.com/
 [2captcha sofware catalog]: https://2captcha.com/software
 [pingback settings]: https://2captcha.com/setting/pingback
