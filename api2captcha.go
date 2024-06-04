@@ -16,6 +16,7 @@ import (
 
 const (
 	BaseURL = "https://2captcha.com"
+	DefaultSoftId = 4583
 )
 
 type (
@@ -217,6 +218,7 @@ func NewClient(apiKey string) *Client {
 	return &Client{
 		BaseURL:          base,
 		ApiKey:           apiKey,
+		SoftId:           DefaultSoftId,
 		DefaultTimeout:   120,
 		PollingInterval:  10,
 		RecaptchaTimeout: 600,
