@@ -22,8 +22,8 @@ The easiest way to quickly integrate [2Captcha] into your code to automate solvi
   - [CloudflareTurnstile](#cloudflare-turnstile)
   - [Lemin Cropped Captcha](#lemin-cropped-captcha)
   - [GeeTestV4](#geetestv4)
-  - [CyberSiARA](#cyber-siara)
-  - [DataDome](#data-dome)
+  - [CyberSiARA](#cybersiara)
+  - [DataDome](#datadome)
   - [MTCaptcha](#mtcaptcha)
 - [Other methods](#other-methods)
   - [send / getResult](#send--getresult)
@@ -63,7 +63,7 @@ client.PollingInterval = 100
 
 |Option|Default value|Description|
 |---|---|---|
-|soft_id|-|your software ID obtained after publishing in [2captcha sofware catalog]|
+|soft_id|4583|Your software ID obtained after publishing in [2captcha sofware catalog]|
 |callback|-|URL of your web-sever that receives the captcha recognition result. The URl should be first registered in [pingback settings] of your account|
 |default_timeout|120|Timeout in seconds for all captcha types except ReCaptcha. Defines how long the module tries to get the answer from `res.php` API endpoint|
 |recaptcha_timeout|600|Timeout for ReCaptcha in seconds. Defines how long the module tries to get the answer from `res.php` API endpoint|
@@ -349,7 +349,7 @@ cap := Lemin{
 }
 ```
 
-### CloudflareTurnstile
+### Cloudflare Turnstile
 Use this method to solve Cloudflare Turnstile. Returns JSON with the token.
 
 ```go
