@@ -372,43 +372,47 @@ func (c *Client) Send(req Request) (string, error) {
 	return data[3:], nil
 }
 
-func (c *Client) Solve(req Request) (string, error) {
+func (c *Client) Solve(req Request) (string, string, error) {
+    if c.Callback != "" {
+        _, ok := req.Params["pingback"]
+        if !ok {
+            // set default pingback
+            req.Params["pingback"] = c.Callback
+        }
+    }
 
-	if c.Callback != "" {
-		_, ok := req.Params["pingback"]
-		if !ok {
-			// set default pingback
-			req.Params["pingback"] = c.Callback
-		}
-	}
+    pingback, hasPingback := req.Params["pingback"]
+    if pingback == "" {
+        delete(req.Params, "pingback")
+        hasPingback = false
+    }
 
-	pingback, hasPingback := req.Params["pingback"]
-	if pingback == "" {
-		delete(req.Params, "pingback")
-		hasPingback = false
-	}
+    _, ok := req.Params["soft_id"]
+    if c.SoftId != 0 && !ok {
+        req.Params["soft_id"] = strconv.FormatInt(int64(c.SoftId), 10)
+    }
 
-	_, ok := req.Params["soft_id"]
-	if c.SoftId != 0 && !ok {
-		req.Params["soft_id"] = strconv.FormatInt(int64(c.SoftId), 10)
-	}
+    id, err := c.Send(req)
+    if err != nil {
+        return "", "", err
+    }
 
-	id, err := c.Send(req)
-	if err != nil {
-		return "", err
-	}
+    // don't wait for result if Callback is used
+    if hasPingback {
+        return "", id, nil
+    }
 
-	// don't wait for result if Callback is used
-	if hasPingback {
-		return id, nil
-	}
+    timeout := c.DefaultTimeout
+    if req.Params["method"] == "userrecaptcha" {
+        timeout = c.RecaptchaTimeout
+    }
 
-	timeout := c.DefaultTimeout
-	if req.Params["method"] == "userrecaptcha" {
-		timeout = c.RecaptchaTimeout
-	}
+    token, err := c.WaitForResult(id, timeout, c.PollingInterval)
+    if err != nil {
+        return "", "", err
+    }
 
-	return c.WaitForResult(id, timeout, c.PollingInterval)
+    return token, id, nil
 }
 
 func (c *Client) WaitForResult(id string, timeout int, interval int) (string, error) {
