@@ -167,8 +167,12 @@ type (
 	}
 
 	CloudflareTurnstile struct {
-		SiteKey string
-		Url     string
+		SiteKey   string
+		Url       string
+		Data      string
+		PageData  string
+		Action    string
+		UserAgent string
 	}
 
 	CyberSiARA struct {
@@ -898,18 +902,30 @@ func (c *Lemin) ToRequest() Request {
 }
 
 func (c *CloudflareTurnstile) ToRequest() Request {
-	req := Request{
-		Params: map[string]string{"method": "turnstile"},
-	}
+    req := Request{
+        Params: map[string]string{"method": "turnstile"},
+    }
 
-	if c.SiteKey != "" {
-		req.Params["sitekey"] = c.SiteKey
-	}
-	if c.Url != "" {
-		req.Params["pageurl"] = c.Url
-	}
+    if c.SiteKey != "" {
+        req.Params["sitekey"] = c.SiteKey
+    }
+    if c.Url != "" {
+        req.Params["pageurl"] = c.Url
+    }
+    if c.Data != "" {
+        req.Params["data"] = c.Data
+    }
+    if c.PageData != "" {
+        req.Params["pagedata"] = c.PageData
+    }
+    if c.Action != "" {
+        req.Params["action"] = c.Action
+    }
+    if c.UserAgent != "" {
+        req.Params["userAgent"] = c.UserAgent
+    }
 
-	return req
+    return req
 }
 
 func (c *CyberSiARA) ToRequest() Request {
