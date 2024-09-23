@@ -9,15 +9,16 @@ import (
 func main() {
 	client := api2captcha.NewClient(os.Args[1])
 
-	captcha := api2captcha.MTCaptcha{
-		SiteKey: "MTPublic-KzqLY1cKH",
-		Url:     "https://2captcha.com/demo/mtcaptcha",
+	tencentCaptcha := api2captcha.Tencent{
+		AppId:   "2092215077",
+		PageUrl: "http://lcec.lclog.cn/cargo/NewCargotracking?blno=BANR01XMHB0004&selectstate=BLNO",
 	}
-	req := captcha.ToRequest()
+
+	req := tencentCaptcha.ToRequest()
 
 	token, captchaId, err := client.Solve(req)
 
-	fmt.Println(token)
-	fmt.Println(captchaId)
+	fmt.Println("token ::: " + token)
+	fmt.Println("captchaId ::: " + captchaId)
 	fmt.Println(err)
 }

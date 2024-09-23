@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	BaseURL = "https://2captcha.com"
+	BaseURL       = "https://2captcha.com"
 	DefaultSoftId = 4583
 )
 
@@ -120,14 +120,14 @@ type (
 	}
 
 	ReCaptcha struct {
-		SiteKey   string
-		Url       string
-		Invisible bool
+		SiteKey    string
+		Url        string
+		Invisible  bool
 		Enterprise bool
-		Version   string
-		Action    string
-		DataS     string
-		Score     float64
+		Version    string
+		Action     string
+		DataS      string
+		Score      float64
 	}
 
 	Rotate struct {
@@ -146,12 +146,12 @@ type (
 	}
 
 	AmazonWAF struct {
-		Iv string
-		SiteKey string
-		Url string
-		Context string
+		Iv              string
+		SiteKey         string
+		Url             string
+		Context         string
 		ChallengeScript string
-		CaptchaScript string
+		CaptchaScript   string
 	}
 
 	GeeTestV4 struct {
@@ -205,9 +205,14 @@ type (
 	}
 
 	CutCaptcha struct {
-		MiseryKey string
-		DataApiKey    string
-		Url       string
+		MiseryKey  string
+		DataApiKey string
+		Url        string
+	}
+
+	Tencent struct {
+		AppId   string
+		PageUrl string
 	}
 )
 
@@ -377,46 +382,46 @@ func (c *Client) Send(req Request) (string, error) {
 }
 
 func (c *Client) Solve(req Request) (string, string, error) {
-    if c.Callback != "" {
-        _, ok := req.Params["pingback"]
-        if !ok {
-            // set default pingback
-            req.Params["pingback"] = c.Callback
-        }
-    }
+	if c.Callback != "" {
+		_, ok := req.Params["pingback"]
+		if !ok {
+			// set default pingback
+			req.Params["pingback"] = c.Callback
+		}
+	}
 
-    pingback, hasPingback := req.Params["pingback"]
-    if pingback == "" {
-        delete(req.Params, "pingback")
-        hasPingback = false
-    }
+	pingback, hasPingback := req.Params["pingback"]
+	if pingback == "" {
+		delete(req.Params, "pingback")
+		hasPingback = false
+	}
 
-    _, ok := req.Params["soft_id"]
-    if c.SoftId != 0 && !ok {
-        req.Params["soft_id"] = strconv.FormatInt(int64(c.SoftId), 10)
-    }
+	_, ok := req.Params["soft_id"]
+	if c.SoftId != 0 && !ok {
+		req.Params["soft_id"] = strconv.FormatInt(int64(c.SoftId), 10)
+	}
 
-    id, err := c.Send(req)
-    if err != nil {
-        return "", "", err
-    }
+	id, err := c.Send(req)
+	if err != nil {
+		return "", "", err
+	}
 
-    // don't wait for result if Callback is used
-    if hasPingback {
-        return "", id, nil
-    }
+	// don't wait for result if Callback is used
+	if hasPingback {
+		return "", id, nil
+	}
 
-    timeout := c.DefaultTimeout
-    if req.Params["method"] == "userrecaptcha" {
-        timeout = c.RecaptchaTimeout
-    }
+	timeout := c.DefaultTimeout
+	if req.Params["method"] == "userrecaptcha" {
+		timeout = c.RecaptchaTimeout
+	}
 
-    token, err := c.WaitForResult(id, timeout, c.PollingInterval)
-    if err != nil {
-        return "", "", err
-    }
+	token, err := c.WaitForResult(id, timeout, c.PollingInterval)
+	if err != nil {
+		return "", "", err
+	}
 
-    return token, id, nil
+	return token, id, nil
 }
 
 func (c *Client) WaitForResult(id string, timeout int, interval int) (string, error) {
@@ -830,9 +835,9 @@ func (c *Text) ToRequest() Request {
 	return req
 }
 
-func (c *	AmazonWAF ) ToRequest() Request {
+func (c *AmazonWAF) ToRequest() Request {
 	req := Request{
-		Params: map[string]string{"method":"amazon_waf"},
+		Params: map[string]string{"method": "amazon_waf"},
 	}
 
 	if c.Iv != "" {
@@ -902,30 +907,30 @@ func (c *Lemin) ToRequest() Request {
 }
 
 func (c *CloudflareTurnstile) ToRequest() Request {
-    req := Request{
-        Params: map[string]string{"method": "turnstile"},
-    }
+	req := Request{
+		Params: map[string]string{"method": "turnstile"},
+	}
 
-    if c.SiteKey != "" {
-        req.Params["sitekey"] = c.SiteKey
-    }
-    if c.Url != "" {
-        req.Params["pageurl"] = c.Url
-    }
-    if c.Data != "" {
-        req.Params["data"] = c.Data
-    }
-    if c.PageData != "" {
-        req.Params["pagedata"] = c.PageData
-    }
-    if c.Action != "" {
-        req.Params["action"] = c.Action
-    }
-    if c.UserAgent != "" {
-        req.Params["userAgent"] = c.UserAgent
-    }
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.Data != "" {
+		req.Params["data"] = c.Data
+	}
+	if c.PageData != "" {
+		req.Params["pagedata"] = c.PageData
+	}
+	if c.Action != "" {
+		req.Params["action"] = c.Action
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
 
-    return req
+	return req
 }
 
 func (c *CyberSiARA) ToRequest() Request {
@@ -1000,7 +1005,6 @@ func (c *Yandex) ToRequest() Request {
 	return req
 }
 
-
 func (c *Friendly) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "friendly_captcha"},
@@ -1029,6 +1033,20 @@ func (c *CutCaptcha) ToRequest() Request {
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Tencent) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "tencent"},
+	}
+	if c.AppId != "" {
+		req.Params["app_id"] = c.AppId
+	}
+	if c.PageUrl != "" {
+		req.Params["pageurl"] = c.PageUrl
 	}
 
 	return req
