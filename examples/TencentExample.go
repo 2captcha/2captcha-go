@@ -7,8 +7,6 @@ import (
 )
 
 func main() {
-	//"06c869c488704f62826181f2562ac999"
-	//argsWithProg := os.Args
 	client := api2captcha.NewClient(os.Args[1])
 
 	captcha := api2captcha.MTCaptcha{
@@ -16,9 +14,10 @@ func main() {
 		Url:     "https://2captcha.com/demo/mtcaptcha",
 	}
 	req := captcha.ToRequest()
-	code, code1, err := client.Solve(req)
 
-	fmt.Println(code)
-	fmt.Println(code1)
+	token, captchaId, err := client.Solve(req)
+
+	fmt.Println(token)
+	fmt.Println(captchaId)
 	fmt.Println(err)
 }
