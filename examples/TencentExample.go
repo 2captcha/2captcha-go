@@ -20,5 +20,6 @@ func main() {
 
 	fmt.Println("token ::: " + token)
 	fmt.Println("captchaId ::: " + captchaId)
+	fmt.Print("error ::: ")
 	fmt.Println(err)
 }
