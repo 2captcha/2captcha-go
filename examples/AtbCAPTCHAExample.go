@@ -9,12 +9,13 @@ import (
 func main() {
 	client := api2captcha.NewClient(os.Args[1])
 
-	tencentCaptcha := api2captcha.Tencent{
-		AppId: "2092215077",
-		Url:   "http://lcec.lclog.cn/cargo/NewCargotracking?blno=BANR01XMHB0004&selectstate=BLNO",
+	atbCaptcha := api2captcha.AtbCAPTCHA{
+		AppId:     "af23e041b22d000a11e22a230fa8991c",
+		Url:       "https://www.playzone.vip/",
+		ApiServer: "https://cap.aisecurius.com",
 	}
 
-	req := tencentCaptcha.ToRequest()
+	req := atbCaptcha.ToRequest()
 
 	token, captchaId, err := client.Solve(req)
 

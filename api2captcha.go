@@ -211,8 +211,14 @@ type (
 	}
 
 	Tencent struct {
-		AppId   string
-		PageUrl string
+		AppId string
+		Url   string
+	}
+
+	AtbCAPTCHA struct {
+		AppId     string
+		ApiServer string
+		Url       string
 	}
 )
 
@@ -1045,8 +1051,25 @@ func (c *Tencent) ToRequest() Request {
 	if c.AppId != "" {
 		req.Params["app_id"] = c.AppId
 	}
-	if c.PageUrl != "" {
-		req.Params["pageurl"] = c.PageUrl
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *AtbCAPTCHA) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "atb_captcha"},
+	}
+	if c.AppId != "" {
+		req.Params["app_id"] = c.AppId
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.ApiServer != "" {
+		req.Params["api_server"] = c.ApiServer
 	}
 
 	return req
