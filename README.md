@@ -35,6 +35,9 @@ Examples of API requests for different captcha types are available on the [Golan
     - [CyberSiARA](#cybersiara)
     - [DataDome](#datadome)
     - [MTCaptcha](#mtcaptcha)
+    - [Tencent](#tencent)
+    - [AtbCAPTCHA](#atbcaptcha)
+    - [Cutcaptcha](#cutcaptcha)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -421,10 +424,10 @@ captcha:= api2captcha.Friendly{
 }
 ```
 
-### CutCaptcha
-Use this method to solve CutCaptcha and obtain a token to bypass the protection.
+### Cutcaptcha
+Use this method to solve Cutcaptcha and obtain a token to bypass the protection.
 ```go
-captcha:= api2captcha.CutCaptcha{
+captcha:= api2captcha.Cutcaptcha{
    MiseryKey: "a1488b66da00bf332a1488993a5443c79047e752",
    DataApiKey: "SAb83IIB",
    Url: "https://example.cc/foo/bar.html",
@@ -442,6 +445,35 @@ captcha:= api2captcha.AmazonWAF {
     Context: "9BUgmlm48F92WUoqv97a49ZuEJJ50TCk9MVr3C7WMtQ0X6flVbufM4n8mjFLmbLVAPgaQ1Jydeaja94iAS49ljb",
     ChallengeScript: "https://41bcdd4fb3cb.610cd090.us-east-1.token.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/challenge.js"
     CaptchaScript: "https://41bcdd4fb3cb.610cd090.us-east-1.captcha.awswaf.com/41bcdd4fb3cb/0d21de737ccb/cd77baa6c832/captcha.js"
+}
+```
+
+### Tencent
+Use this method to solve Tencent and obtain a token to bypass the protection.
+```go
+	tencentCaptcha := api2captcha.Tencent{
+    AppId: "2092215077",
+    Url:   "http://lcec.lclog.cn/cargo/NewCargotracking?blno=BANR01XMHB0004&selectstate=BLNO",
+}
+```
+
+### AtbCAPTCHA
+Use this method to solve AtbCAPTCHA and obtain a token to bypass the protection.
+```go
+	atbCaptcha := api2captcha.AtbCAPTCHA{
+    AppId:     "af23e041b22d000a11e22a230fa8991c",
+    Url:       "https://www.playzone.vip/",
+    ApiServer: "https://cap.aisecurius.com",
+}
+```
+
+### Cutcaptcha
+Use this method to solve Cutcaptcha and obtain a token to bypass the protection.
+```go
+	cutCaptcha := api2captcha.Cutcaptcha{
+    MiseryKey:  "a1488b66da00bf332a1488993a5443c79047e752",
+    Url:        "https://filecrypt.co/Container/237D4D0995.html",
+    DataApiKey: "SAb83IIB",
 }
 ```
 
