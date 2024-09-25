@@ -220,6 +220,12 @@ type (
 		ApiServer string
 		Url       string
 	}
+
+	Cutcaptcha struct {
+		MiseryKey  string
+		DataApiKey string
+		Url        string
+	}
 )
 
 var (
@@ -1070,6 +1076,23 @@ func (c *AtbCAPTCHA) ToRequest() Request {
 	}
 	if c.ApiServer != "" {
 		req.Params["api_server"] = c.ApiServer
+	}
+
+	return req
+}
+
+func (c *Cutcaptcha) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "cutcaptcha"},
+	}
+	if c.MiseryKey != "" {
+		req.Params["misery_key"] = c.MiseryKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.DataApiKey != "" {
+		req.Params["api_key"] = c.DataApiKey
 	}
 
 	return req
