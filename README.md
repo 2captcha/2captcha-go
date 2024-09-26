@@ -38,6 +38,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Tencent](#tencent)
     - [AtbCAPTCHA](#atbcaptcha)
     - [Cutcaptcha](#cutcaptcha)
+    - [FriendlyCaptcha](#friendlycaptcha)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -415,7 +416,7 @@ captcha:= api2captcha.Yandex{
 }
 ```
 
-### Friendly Captcha
+### Friendlycaptcha
 Use this method to solve Friendly Captcha and obtain a token to bypass the protection.
 ```go
 captcha:= api2captcha.Friendly{
