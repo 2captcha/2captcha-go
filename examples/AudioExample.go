@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/base64"
 	"fmt"
+	api2captcha "github.com/2captcha/2captcha-go"
 	"io"
 	"log"
 	"os"
@@ -11,7 +12,7 @@ import (
 )
 
 func main() {
-	//client := api2captcha.NewClient(os.Args[1])
+	client := api2captcha.NewClient(os.Args[1])
 
 	currentDir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	assetsDir := currentDir + "/assets"
@@ -49,27 +50,18 @@ func main() {
 	//data := buf.Bytes()
 	fileBase64Str := base64.StdEncoding.EncodeToString(bs)
 
-	fmt.Println(fileBase64Str)
-	/*
-		tencentCaptcha := api2captcha.Tencent{
-			AppId: "2092215077",
-			Url:   "http://lcec.lclog.cn/cargo/NewCargotracking?blno=BANR01XMHB0004&selectstate=BLNO",
-		}
+	//fmt.Println(fileBase64Str)
+	audio := api2captcha.Audio{
+		Base64: fileBase64Str,
+		Lang:   "en",
+	}
 
-		req := tencentCaptcha.ToRequest()
+	req := audio.ToRequest()
 
-		token, captchaId, err := client.Solve(req)
+	token, captchaId, err := client.Solve(req)
 
-		fmt.Println("token ::: " + token)
-		fmt.Println("captchaId ::: " + captchaId)
-		fmt.Print("error ::: ")
-		fmt.Println(err)*/
+	fmt.Println("token ::: " + token)
+	fmt.Println("captchaId ::: " + captchaId)
+	fmt.Print("error ::: ")
+	fmt.Println(err)
 }
-
-/*
-dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-  if err != nil {
-    log.Fatal(err)
-  }
-  fmt.Println(dir)
-*/

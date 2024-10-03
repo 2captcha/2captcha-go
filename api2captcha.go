@@ -226,6 +226,11 @@ type (
 		DataApiKey string
 		Url        string
 	}
+
+	Audio struct {
+		Base64 string
+		Lang   string
+	}
 )
 
 var (
@@ -1093,6 +1098,20 @@ func (c *Cutcaptcha) ToRequest() Request {
 	}
 	if c.DataApiKey != "" {
 		req.Params["api_key"] = c.DataApiKey
+	}
+
+	return req
+}
+
+func (c *Audio) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "audio"},
+	}
+	if c.Base64 != "" {
+		req.Params["body"] = c.Base64
+	}
+	if c.Lang != "" {
+		req.Params["lang"] = c.Lang
 	}
 
 	return req
