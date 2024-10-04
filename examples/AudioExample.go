@@ -14,43 +14,18 @@ import (
 func main() {
 	client := api2captcha.NewClient(os.Args[1])
 
-	currentDir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	assetsDir := currentDir + "/assets"
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(assetsDir)
-
-	//var buf bytes.Buffer
+	assetsDir := getAssetsDir(os.Args[0])
 
 	fileName := assetsDir + "/" + "audio-en.mp3"
-	file, err := os.Open(fileName)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer file.Close()
 
-	// Get the file size
-	stat, err := file.Stat()
-	if err != nil {
-		fmt.Println(err)
+	bs := readFile2BiteSlice(fileName)
+
+	if bs == nil {
 		return
 	}
 
-	// Read the file into a byte slice
-	bs := make([]byte, stat.Size())
-	_, err = bufio.NewReader(file).Read(bs)
-	if err != nil && err != io.EOF {
-		fmt.Println(err)
-		return
-	}
-
-	//data := buf.Bytes()
 	fileBase64Str := base64.StdEncoding.EncodeToString(bs)
 
-	//fmt.Println(fileBase64Str)
 	audio := api2captcha.Audio{
 		Base64: fileBase64Str,
 		Lang:   "en",
@@ -64,4 +39,38 @@ func main() {
 	fmt.Println("captchaId ::: " + captchaId)
 	fmt.Print("error ::: ")
 	fmt.Println(err)
+}
+
+func readFile2BiteSlice(fileName string) []byte {
+
+	file, err := os.Open(fileName)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	defer file.Close()
+
+	stat, err := file.Stat()
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	bs := make([]byte, stat.Size())
+	_, err = bufio.NewReader(file).Read(bs)
+	if err != nil && err != io.EOF {
+		fmt.Println(err)
+		return nil
+	}
+	return bs
+}
+
+func getAssetsDir(currentDir string) string {
+	currentDir, err := filepath.Abs(filepath.Dir(currentDir))
+	assetsDir := currentDir + "/assets"
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return assetsDir
 }
