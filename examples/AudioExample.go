@@ -5,16 +5,15 @@ import (
 	"encoding/base64"
 	"fmt"
 	api2captcha "github.com/2captcha/2captcha-go"
+	helper "github.com/2captcha/2captcha-go/examples/internal"
 	"io"
-	"log"
 	"os"
-	"path/filepath"
 )
 
 func main() {
 	client := api2captcha.NewClient(os.Args[1])
 
-	assetsDir := getAssetsDir(os.Args[0])
+	assetsDir := helper.GetAssetsDir(os.Args[0])
 
 	fileName := assetsDir + "/" + "audio-en.mp3"
 
@@ -63,14 +62,4 @@ func readFile2BiteSlice(fileName string) []byte {
 		return nil
 	}
 	return bs
-}
-
-func getAssetsDir(currentDir string) string {
-	currentDir, err := filepath.Abs(filepath.Dir(currentDir))
-	assetsDir := currentDir + "/assets"
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	return assetsDir
 }
