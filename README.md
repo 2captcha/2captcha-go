@@ -39,6 +39,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [AtbCAPTCHA](#atbcaptcha)
     - [Cutcaptcha](#cutcaptcha)
     - [FriendlyCaptcha](#friendlycaptcha)
+    - [Audio](#audio)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -475,6 +476,15 @@ Use this method to solve Cutcaptcha and obtain a token to bypass the protection.
     MiseryKey:  "a1488b66da00bf332a1488993a5443c79047e752",
     Url:        "https://filecrypt.co/Container/237D4D0995.html",
     DataApiKey: "SAb83IIB",
+}
+```
+
+### Audio
+Use this method to solve Audio captcha and obtain a token to bypass the protection.
+```go
+	audio := api2captcha.Audio{
+    Base64: fileBase64Str,
+    Lang:   "en",
 }
 ```
 
