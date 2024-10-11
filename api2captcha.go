@@ -158,6 +158,8 @@ type (
 	GeeTestV4 struct {
 		CaptchaId string
 		Url       string
+		ApiServer string
+		Challenge string
 	}
 
 	Lemin struct {
