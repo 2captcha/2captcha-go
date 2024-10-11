@@ -13,7 +13,7 @@ func main() {
 
 	assetsDir := helper.GetAssetsDir(os.Args[0])
 
-	fileName := assetsDir + "/" + "audio-en.mp3"
+	fileName := assetsDir + "/" + "rotate.jpg"
 
 	bs := helper.ReadFile2BiteSlice(fileName)
 
@@ -23,12 +23,11 @@ func main() {
 
 	fileBase64Str := base64.StdEncoding.EncodeToString(bs)
 
-	audio := api2captcha.Audio{
+	rotate := api2captcha.Rotate{
 		Base64: fileBase64Str,
-		Lang:   "en",
 	}
 
-	req := audio.ToRequest()
+	req := rotate.ToRequest()
 
 	token, captchaId, err := client.Solve(req)
 

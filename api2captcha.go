@@ -131,6 +131,7 @@ type (
 	}
 
 	Rotate struct {
+		Base64          string
 		File            string
 		Files           []string
 		Angle           int
@@ -834,7 +835,9 @@ func (c *Rotate) ToRequest() Request {
 	if c.HintImageFile != "" {
 		req.Files["imginstructions"] = c.HintImageFile
 	}
-
+	if c.Base64 != "" {
+		req.Params["body"] = c.Base64
+	}
 	return req
 }
 
