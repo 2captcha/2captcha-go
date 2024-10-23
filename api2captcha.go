@@ -224,12 +224,6 @@ type (
 		Url       string
 	}
 
-	Cutcaptcha struct {
-		MiseryKey  string
-		DataApiKey string
-		Url        string
-	}
-
 	Audio struct {
 		Base64 string
 		Lang   string
@@ -1042,24 +1036,6 @@ func (c *Friendly) ToRequest() Request {
 	return req
 }
 
-func (c *CutCaptcha) ToRequest() Request {
-	req := Request{
-		Params: map[string]string{"method": "cutcaptcha"},
-	}
-
-	if c.MiseryKey != "" {
-		req.Params["misery_key"] = c.MiseryKey
-	}
-	if c.DataApiKey != "" {
-		req.Params["api_key"] = c.DataApiKey
-	}
-	if c.Url != "" {
-		req.Params["pageurl"] = c.Url
-	}
-
-	return req
-}
-
 func (c *Tencent) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "tencent"},
@@ -1091,7 +1067,7 @@ func (c *AtbCAPTCHA) ToRequest() Request {
 	return req
 }
 
-func (c *Cutcaptcha) ToRequest() Request {
+func (c *CutCaptcha) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "cutcaptcha"},
 	}

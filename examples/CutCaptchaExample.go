@@ -9,7 +9,7 @@ import (
 func main() {
 	client := api2captcha.NewClient(os.Args[1])
 
-	cutCaptcha := api2captcha.Cutcaptcha{
+	cutCaptcha := api2captcha.CutCaptcha{
 		MiseryKey:  "a1488b66da00bf332a1488993a5443c79047e752",
 		Url:        "https://filecrypt.co/Container/237D4D0995.html",
 		DataApiKey: "SAb83IIB",
