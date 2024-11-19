@@ -21,7 +21,6 @@ Examples of API requests for different captcha types are available on the [Golan
     - [reCAPTCHA Enterprise](#recaptcha-enterprise)
     - [FunCaptcha](#funcaptcha)
     - [GeeTest](#geetest)
-    - [hCaptcha](#hcaptcha)
     - [KeyCaptcha](#keycaptcha)
     - [Capy](#capy)
     - [Grid (ReCaptcha V2 Old Method)](#grid)
@@ -247,18 +246,6 @@ req.SetProxy("HTTPS", "login:password@IP_address:PORT")
 code, err := client.Solve(req)
 ```
 
-### hCaptcha
-Method to solve GeeTest puzzle captcha. Returns a set of tokens as JSON.
-
-```go
-captcha:= api2captcha.HCaptcha{
-   SiteKey: "10000000-ffff-ffff-ffff-000000000001",
-   Url: "https://mysite.com/captcha.html",
-}
-req := captchaToRequest()
-req.SetProxy("HTTPS", "login:password@IP_address:PORT")
-code, err := client.Solve(req)
-```
 
 ### KeyCaptcha
 Token-based method to solve KeyCaptcha.
@@ -532,7 +519,7 @@ err := client.Report(id, false) // solved incorrectly
 ```
 
 ## Proxies
-You can pass your proxy as an additional argument for methods: recaptcha, funcaptcha, geetest, geetest v4, hcaptcha, keycaptcha, capy puzzle, lemin, turnstile, amazon waf, CyberSiARA, DataDome, MTCaptcha and etc. The proxy will be forwarded to the API to solve the captcha.
+You can pass your proxy as an additional argument for methods: recaptcha, funcaptcha, geetest, geetest v4, keycaptcha, capy puzzle, lemin, turnstile, amazon waf, CyberSiARA, DataDome, MTCaptcha and etc. The proxy will be forwarded to the API to solve the captcha.
 
 We have our own proxies that we can offer you. [Buy residential proxies](https://2captcha.com/proxy/residential-proxies) for avoid restrictions and blocks. [Quick start](https://2captcha.com/proxy?openAddTrafficModal=true).
 
