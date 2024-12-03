@@ -11,7 +11,7 @@ func main() {
 
 	lemin := api2captcha.Lemin{
 		CaptchaId: "CROPPED_d3d4d56_73ca4008925b4f83a8bed59c2dd0df6d",
-		Url:       "http://sat2.aksigorta.com.tr",
+		Url:       "https://www.site.com/page/",
 		ApiServer: "api.leminnow.com",
 	}
 
