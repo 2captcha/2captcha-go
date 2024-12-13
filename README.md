@@ -37,6 +37,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [CyberSiARA](#cybersiara)
     - [DataDome](#datadome)
     - [MTCaptcha](#mtcaptcha)
+    - [Yandex](#yandex)
     - [Tencent](#tencent)
     - [atbCAPTCHA](#atbcaptcha)
     - [Cutcaptcha](#cutcaptcha)
@@ -483,7 +484,7 @@ captcha:= api2captcha.MTCaptcha{
 Use this method to solve Yandex and obtain a token to bypass the protection.
 ```go
 captcha:= api2captcha.Yandex{
-   Url: "https://rutube.ru",
+   Url: "https://example.com",
    SiteKey: "Y5Lh0tiycconMJGsFd3EbbuNKSp1yaZESUOIHfeV",
 }
 ```
