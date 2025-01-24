@@ -599,6 +599,37 @@ err := client.Report(id, true) // solved correctly
 err := client.Report(id, false) // solved incorrectly
 ```
 
+## Error Handling
+
+When using the 2Captcha API, it's important to handle errors properly to ensure smooth interaction with the service. Below is an example of error handling in the `2captcha-go` library:
+
+```go
+func main() {
+	result, err := client.Text("If tomorrow is Saturday, what day is today?")
+	if err != nil {
+		switch e := err.(type) {
+		case *api.ValidationException:
+			// Invalid parameters passed
+			log.Fatalf("Validation error: %v", e)
+		case *api.NetworkException:
+			// Network error occurred
+			log.Fatalf("Network error: %v", e)
+		case *api.ApiException:
+			// API responded with an error
+			log.Fatalf("API error: %v", e)
+		case *api.TimeoutException:
+			// CAPTCHA is not solved within the expected time
+			log.Fatalf("Timeout error: %v", e)
+		default:
+			// Unknown error
+			log.Fatalf("Unexpected error: %v", err)
+		}
+	}
+
+	fmt.Printf("CAPTCHA solved! Result: %s\n", result.Text)
+}
+```
+
 ## Proxies
 You can pass your proxy as an additional argument for methods: recaptcha, funcaptcha, geetest, geetest v4, keycaptcha, capy puzzle, lemin, turnstile, amazon waf, CyberSiARA, DataDome, MTCaptcha and etc. The proxy will be forwarded to the API to solve the captcha.
 
