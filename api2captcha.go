@@ -245,7 +245,7 @@ func NewClient(apiKey string) *Client {
 		DefaultTimeout:   120,
 		PollingInterval:  10,
 		RecaptchaTimeout: 600,
-		httpClient:       &http.Client{},
+		httpClient:       http.DefaultClient,
 	}
 }
 
@@ -278,7 +278,7 @@ func (c *Client) res(req Request) (*string, error) {
 	uri.RawQuery = values.Encode()
 
 	var err error = nil
-	resp, err = http.Get(uri.String())
+	resp, err = c.httpClient.Get(uri.String())
 	if err != nil {
 		return nil, ErrNetwork
 	}
@@ -366,7 +366,7 @@ func (c *Client) Send(req Request) (string, error) {
 		}
 
 		var err error = nil
-		resp, err = http.PostForm(uri.String(), values)
+		resp, err = c.httpClient.PostForm(uri.String(), values)
 		if err != nil {
 			return "", ErrNetwork
 		}
