@@ -128,6 +128,8 @@ type (
 		Action     string
 		DataS      string
 		Score      float64
+		UserAgent  string
+		Cookies    string
 	}
 
 	Rotate struct {
@@ -262,7 +264,6 @@ func NewClientExt(apiKey string, client *http.Client) *Client {
 }
 
 func (c *Client) res(req Request) (*string, error) {
-
 	rel := &url.URL{Path: "/res.php"}
 	uri := c.BaseURL.ResolveReference(rel)
 
@@ -311,7 +312,6 @@ func (c *Client) resAction(action string) (*string, error) {
 }
 
 func (c *Client) Send(req Request) (string, error) {
-
 	rel := &url.URL{Path: "/in.php"}
 	uri := c.BaseURL.ResolveReference(rel)
 
@@ -439,7 +439,6 @@ func (c *Client) Solve(req Request) (string, string, error) {
 }
 
 func (c *Client) WaitForResult(id string, timeout int, interval int) (string, error) {
-
 	start := time.Now()
 	now := start
 	for now.Sub(start) < (time.Duration(timeout) * time.Second) {
@@ -797,6 +796,12 @@ func (c *ReCaptcha) ToRequest() Request {
 	}
 	if c.Score != 0 {
 		req.Params["min_score"] = strconv.FormatFloat(c.Score, 'f', -1, 64)
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+	if c.Cookies != "" {
+		req.Params["cookies"] = c.Cookies
 	}
 
 	return req
