@@ -43,6 +43,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Cutcaptcha](#cutcaptcha)
     - [Friendly Captcha](#friendly-captcha)
     - [Audio Captcha](#audio-captcha)
+    - [VK Captcha](#vk-captcha)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -548,6 +549,22 @@ Use this method to solve Audio captcha and obtain a token to bypass the protecti
 audio := api2captcha.Audio{
    Base64: fileBase64Str,
    Lang:   "en",
+}
+```
+
+### VKCaptcha
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#vkcaptcha)</sup>
+
+We offer two methods to solve this type of captcha - token-based and image-based.
+
+We use the body (image in base64 format) or file (image as file) and steps parameters.
+You can get both values from the response to the request https://api.vk.com/method/captchaNotRobot.getContent?v={API_VER} when loading the captcha widget on the page.
+
+```go
+vkcaptcha := api2captcha.VKCaptcha{
+   Base64:     "/9j/4AAQSkZJRgABAQAAAQABAAD/2wB...",
+   Steps:      "[5,19,14,14,6,4,8,9...]
 }
 ```
 
