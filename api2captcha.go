@@ -230,6 +230,11 @@ type (
 		Base64 string
 		Lang   string
 	}
+
+	Prosopo struct {
+		Url     string
+		SiteKey string
+	}
 )
 
 var (
@@ -1098,6 +1103,21 @@ func (c *Audio) ToRequest() Request {
 	}
 	if c.Lang != "" {
 		req.Params["lang"] = c.Lang
+	}
+
+	return req
+}
+
+func (c *Prosopo) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "prosopo"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
 	}
 
 	return req

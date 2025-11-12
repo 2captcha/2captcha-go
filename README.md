@@ -43,6 +43,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Cutcaptcha](#cutcaptcha)
     - [Friendly Captcha](#friendly-captcha)
     - [Audio Captcha](#audio-captcha)
+    - [Prosopo](#prosopo)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -549,6 +550,17 @@ audio := api2captcha.Audio{
    Base64: fileBase64Str,
    Lang:   "en",
 }
+```
+### Prosopo
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#prosopo-procaptcha)</sup>
+
+Use this method to solve Prosopo Captcha and obtain a token to bypass the protection.
+```go
+	prosopo := api2captcha.Prosopo{
+		SiteKey: "5EZVvsHMrKCFKp5NYNoTyDjTjetoVo1Z4UNNbTwJf1GfN6Xm",
+		Url:     "https://www.twickets.live/",
+	}
 ```
 
 ## Other methods
