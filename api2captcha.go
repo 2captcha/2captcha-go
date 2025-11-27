@@ -235,6 +235,14 @@ type (
 		Url     string
 		SiteKey string
 	}
+
+	Captchafox struct {
+		Url       string
+		SiteKey   string
+		Proxytype string
+		Proxy     string
+		UserAgent string
+	}
 )
 
 var (
@@ -1118,6 +1126,30 @@ func (c *Prosopo) ToRequest() Request {
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Captchafox) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "captchafox"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["captcha_url"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
 	}
 
 	return req
