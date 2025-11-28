@@ -45,6 +45,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Audio Captcha](#audio-captcha)
     - [Prosopo](#prosopo)
     - [Captchafox](#captchafox)
+    - [Temu](#temu)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -581,6 +582,21 @@ Use this method to bypass Captchafox.
 	}
 ```
 
+
+### Temu
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#temucaptcha)</sup>
+
+Use this method to bypass Temu.
+
+```go
+	temuCaptcha := api2captcha.Temu{
+		Body:  body,
+		Part1: part1,
+		Part2: part2,
+		Part3: part3,
+	}
+```
 
 ## Other methods
 

@@ -243,6 +243,13 @@ type (
 		Proxy     string
 		UserAgent string
 	}
+
+	Temu struct {
+		Body  string
+		Part1 string
+		Part2 string
+		Part3 string
+	}
 )
 
 var (
@@ -1150,6 +1157,26 @@ func (c *Captchafox) ToRequest() Request {
 	}
 	if c.UserAgent != "" {
 		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *Temu) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "temuimage"},
+	}
+	if c.Body != "" {
+		req.Params["body"] = c.Body
+	}
+	if c.Part1 != "" {
+		req.Params["part1"] = c.Part1
+	}
+	if c.Part2 != "" {
+		req.Params["part2"] = c.Part2
+	}
+	if c.Part3 != "" {
+		req.Params["part3"] = c.Part3
 	}
 
 	return req
