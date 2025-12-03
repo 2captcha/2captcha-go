@@ -13,7 +13,7 @@ func main() {
 
 	client := api2captcha.NewClient(os.Args[1])
 
-	assetsDir := helper.GetAssetsDir(os.Args[0])
+	assetsDir := helper.GetExamplesAssetsDir(os.Args[0])
 
 	bodyFile := assetsDir + "/temu/body.png"
 	part1File := assetsDir + "/temu/part1.png"
