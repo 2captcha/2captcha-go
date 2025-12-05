@@ -1144,7 +1144,7 @@ func (c *Captchafox) ToRequest() Request {
 	}
 
 	if c.SiteKey != "" {
-		req.Params["captcha_url"] = c.SiteKey
+		req.Params["sitekey"] = c.SiteKey
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
