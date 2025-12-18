@@ -230,6 +230,26 @@ type (
 		Base64 string
 		Lang   string
 	}
+
+	Prosopo struct {
+		Url     string
+		SiteKey string
+	}
+
+	Captchafox struct {
+		Url       string
+		SiteKey   string
+		Proxytype string
+		Proxy     string
+		UserAgent string
+	}
+
+	Temu struct {
+		Body  string
+		Part1 string
+		Part2 string
+		Part3 string
+	}
 )
 
 var (
@@ -1098,6 +1118,65 @@ func (c *Audio) ToRequest() Request {
 	}
 	if c.Lang != "" {
 		req.Params["lang"] = c.Lang
+	}
+
+	return req
+}
+
+func (c *Prosopo) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "prosopo"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Captchafox) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "captchafox"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *Temu) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "temuimage"},
+	}
+	if c.Body != "" {
+		req.Params["body"] = c.Body
+	}
+	if c.Part1 != "" {
+		req.Params["part1"] = c.Part1
+	}
+	if c.Part2 != "" {
+		req.Params["part2"] = c.Part2
+	}
+	if c.Part3 != "" {
+		req.Params["part3"] = c.Part3
 	}
 
 	return req

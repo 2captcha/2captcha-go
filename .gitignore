@@ -1,0 +1,5 @@
+# Intellij IDEA
+.idea
+.run
+.vscode
+/examples/temp/
