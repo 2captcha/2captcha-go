@@ -44,6 +44,9 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Friendly Captcha](#friendly-captcha)
     - [Audio Captcha](#audio-captcha)
     - [VK Captcha](#vk-captcha)
+    - [Prosopo](#prosopo)
+    - [Captchafox](#captchafox)
+    - [Temu](#temu)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -566,6 +569,51 @@ vkcaptcha := api2captcha.VKCaptcha{
    Base64:     "/9j/4AAQSkZJRgABAQAAAQABAAD/2wB...",
    Steps:      "[5,19,14,14,6,4,8,9...]
 }
+```
+
+### Prosopo
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#prosopo-procaptcha)</sup>
+
+Use this method to solve Prosopo Captcha and obtain a token to bypass the protection.
+
+```go
+	prosopo := api2captcha.Prosopo{
+		SiteKey: "5EZVvsHMrKCFKp5NYNoTyDjTjetoVo1Z4UNNbTwJf1GfN6Xm",
+		Url:     "https://www.twickets.live/",
+	}
+```
+
+### Captchafox
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#captchafox)</sup>
+
+Use this method to bypass Captchafox.
+
+```go
+	captchafox := api2captcha.Captchafox{
+		SiteKey:   "sk_ILKWNruBBVKDOM7dZs59KHnDLEWiH",
+		Url:       "https://mysite.com/page/with/captchafox",
+		UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+		Proxy:     "username:password@1.2.3.4:5678",
+		Proxytype: "http",
+	}
+```
+
+
+### Temu
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#temucaptcha)</sup>
+
+Use this method to bypass Temu.
+
+```go
+	temuCaptcha := api2captcha.Temu{
+		Body:  body,
+		Part1: part1,
+		Part2: part2,
+		Part3: part3,
+	}
 ```
 
 ## Other methods

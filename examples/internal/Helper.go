@@ -19,6 +19,16 @@ func GetAssetsDir(currentDir string) string {
 	return assetsDir
 }
 
+func GetExamplesAssetsDir(currentDir string) string {
+	currentDir, err := filepath.Abs(filepath.Dir(currentDir))
+	assetsDir := currentDir + "/examples/assets"
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return assetsDir
+}
+
 func ReadFile2BiteSlice(fileName string) []byte {
 
 	file, err := os.Open(fileName)

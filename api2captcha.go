@@ -128,6 +128,8 @@ type (
 		Action     string
 		DataS      string
 		Score      float64
+		UserAgent  string
+		Cookies    string
 	}
 
 	Rotate struct {
@@ -233,6 +235,26 @@ type (
 		File            string
 		Base64          string
 		Steps           string
+  }
+  
+	Prosopo struct {
+		Url     string
+		SiteKey string
+	}
+
+	Captchafox struct {
+		Url       string
+		SiteKey   string
+		Proxytype string
+		Proxy     string
+		UserAgent string
+	}
+
+	Temu struct {
+		Body  string
+		Part1 string
+		Part2 string
+		Part3 string
 	}
 )
 
@@ -268,7 +290,6 @@ func NewClientExt(apiKey string, client *http.Client) *Client {
 }
 
 func (c *Client) res(req Request) (*string, error) {
-
 	rel := &url.URL{Path: "/res.php"}
 	uri := c.BaseURL.ResolveReference(rel)
 
@@ -317,7 +338,6 @@ func (c *Client) resAction(action string) (*string, error) {
 }
 
 func (c *Client) Send(req Request) (string, error) {
-
 	rel := &url.URL{Path: "/in.php"}
 	uri := c.BaseURL.ResolveReference(rel)
 
@@ -445,7 +465,6 @@ func (c *Client) Solve(req Request) (string, string, error) {
 }
 
 func (c *Client) WaitForResult(id string, timeout int, interval int) (string, error) {
-
 	start := time.Now()
 	now := start
 	for now.Sub(start) < (time.Duration(timeout) * time.Second) {
@@ -804,6 +823,12 @@ func (c *ReCaptcha) ToRequest() Request {
 	if c.Score != 0 {
 		req.Params["min_score"] = strconv.FormatFloat(c.Score, 'f', -1, 64)
 	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+	if c.Cookies != "" {
+		req.Params["cookies"] = c.Cookies
+	}
 
 	return req
 }
@@ -1117,5 +1142,62 @@ func (c *VKCaptcha) ToRequest() Request {
 	if c.Steps != "" {
 		req.Params["steps"] = c.Steps
 	}
+  
+func (c *Prosopo) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "prosopo"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Captchafox) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "captchafox"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+
+	return req
+}
+
+func (c *Temu) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "temuimage"},
+	}
+	if c.Body != "" {
+		req.Params["body"] = c.Body
+	}
+	if c.Part1 != "" {
+		req.Params["part1"] = c.Part1
+	}
+	if c.Part2 != "" {
+		req.Params["part2"] = c.Part2
+	}
+	if c.Part3 != "" {
+		req.Params["part3"] = c.Part3
+	}
+
 	return req
 }
