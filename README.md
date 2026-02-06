@@ -43,6 +43,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Cutcaptcha](#cutcaptcha)
     - [Friendly Captcha](#friendly-captcha)
     - [Audio Captcha](#audio-captcha)
+    - [VK Captcha](#vk-captcha)
     - [Prosopo](#prosopo)
     - [Captchafox](#captchafox)
     - [Temu](#temu)
@@ -556,11 +557,28 @@ audio := api2captcha.Audio{
 }
 ```
 
+### VKCaptcha
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#vkcaptcha)</sup>
+
+We offer two methods to solve this type of captcha - token-based and image-based.
+
+We use the body (image in base64 format) or file (image as file) and steps parameters.
+You can get both values from the response to the request https://api.vk.com/method/captchaNotRobot.getContent?v={API_VER} when loading the captcha widget on the page.
+
+```go
+vkcaptcha := api2captcha.VKCaptcha{
+   Base64:     "/9j/4AAQSkZJRgABAQAAAQABAAD/2wB...",
+   Steps:      "[5,19,14,14,6,4,8,9...]
+}
+```
+
 ### Prosopo
 
 <sup>[API method description.](https://2captcha.com/2captcha-api#prosopo-procaptcha)</sup>
 
 Use this method to solve Prosopo Captcha and obtain a token to bypass the protection.
+
 ```go
 	prosopo := api2captcha.Prosopo{
 		SiteKey: "5EZVvsHMrKCFKp5NYNoTyDjTjetoVo1Z4UNNbTwJf1GfN6Xm",
