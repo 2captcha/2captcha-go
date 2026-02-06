@@ -1,0 +1,5 @@
+go build /.../Go/2captcha-go/examples/TemuExample.go
+
+./TemuExample <apikey>
+
+go run examples/TemuExample.go <apikey>
