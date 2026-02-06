@@ -250,6 +250,16 @@ type (
 		Part2 string
 		Part3 string
 	}
+
+	Vk struct {
+		FilePath    string
+		Body        string
+		Steps       string
+		RedirectUri string
+		UserAgent   string
+		Proxytype   string
+		Proxy       string
+	}
 )
 
 var (
@@ -1177,6 +1187,33 @@ func (c *Temu) ToRequest() Request {
 	}
 	if c.Part3 != "" {
 		req.Params["part3"] = c.Part3
+	}
+
+	return req
+}
+
+func (c *Vk) ToRequest(method string) Request {
+	req := Request{
+		Params: map[string]string{"method": method},
+	}
+
+	if c.Body != "" {
+		req.Params["body"] = c.Body
+	}
+	if c.Steps != "" {
+		req.Params["steps"] = c.Steps
+	}
+	if c.RedirectUri != "" {
+		req.Params["redirect_uri"] = c.RedirectUri
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
 	}
 
 	return req
