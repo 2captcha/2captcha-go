@@ -607,9 +607,12 @@ Use this method to bypass Temu.
 Use this method to bypass Temu.
 
 ```go
-VkCaptcha captcha = new VkCaptcha("vkimage");
-captcha.setImageBase64(base64EncodedImage);
-captcha.setSteps("[5,12,22,24,21,23,10,7,2,8,...]");
+	body := base64.StdEncoding.EncodeToString(bodyBs)
+
+	vk := api2captcha.Vk{
+		Body:  body,
+		Steps: "[5,12,22,24,...,12,22,21,2]",
+	}
 ```
 
 ### VK Captcha

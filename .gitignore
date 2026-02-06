@@ -4,3 +4,5 @@
 .vscode
 /examples/temp/
 examples/CaptchafoxExample
+examples/VkCaptchaExample
+examples/VkImageExample
