@@ -239,6 +239,7 @@ type (
 	Captchafox struct {
 		Url       string
 		SiteKey   string
+		ApiServer string
 		Proxytype string
 		Proxy     string
 		UserAgent string
@@ -1155,6 +1156,9 @@ func (c *Captchafox) ToRequest() Request {
 
 	if c.SiteKey != "" {
 		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.ApiServer != "" {
+		req.Params["api_server"] = c.ApiServer
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url

@@ -578,6 +578,7 @@ Use this method to bypass Captchafox.
 	captchafox := api2captcha.Captchafox{
 		SiteKey:   "sk_ILKWNruBBVKDOM7dZs59KHnDLEWiH",
 		Url:       "https://mysite.com/page/with/captchafox",
+      ApiServer: "https://mam.example.com",
 		UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
 		Proxy:     "username:password@1.2.3.4:5678",
 		Proxytype: "http",
