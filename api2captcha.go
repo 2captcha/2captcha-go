@@ -261,6 +261,12 @@ type (
 		Proxytype   string
 		Proxy       string
 	}
+
+	Altcha struct {
+		Url           string
+		ChallengeJson string
+		ChallengeUrl  string
+	}
 )
 
 var (
@@ -1218,6 +1224,28 @@ func (c *Vk) ToRequest(method string) Request {
 	}
 	if c.Proxy != "" {
 		req.Params["proxy"] = c.Proxy
+	}
+
+	return req
+}
+
+func (c *Altcha) ToRequest(method string) Request {
+	req := Request{
+		Params: map[string]string{
+			"method": method,
+		},
+	}
+
+	if c.Url != "" {
+		req.Params["websiteURL"] = c.Url
+	}
+
+	if c.ChallengeJson != "" {
+		req.Params["challenge"] = c.ChallengeJson
+	}
+
+	if c.ChallengeUrl != "" {
+		req.Params["challengeUrl"] = c.ChallengeUrl
 	}
 
 	return req

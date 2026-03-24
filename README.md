@@ -605,7 +605,7 @@ Use this method to bypass Temu.
 
 <sup>[API method description.](https://2captcha.com/2captcha-api#vkcaptcha)</sup>
 
-Use this method to bypass Temu.
+Use this method to bypass VK Image.
 
 ```go
 	body := base64.StdEncoding.EncodeToString(bodyBs)
@@ -620,7 +620,7 @@ Use this method to bypass Temu.
 
 <sup>[API method description.](https://2captcha.com/2captcha-api#vk-captcha)</sup>
 
-Use this method to bypass Temu.
+Use this method to bypass VK Captcha.
 
 ```go
 	vk := api2captcha.Vk{
@@ -631,6 +631,21 @@ Use this method to bypass Temu.
 	}
 
 	req := vk.ToRequest("vkcaptcha")
+```
+
+### Altcha Captcha
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#altchacaptcha)</sup>
+
+Use this method to solve Altcha Captcha. Returns a token.
+
+```go
+   vk := api2captcha.Altcha{
+      Url: "https://mysite.com/page/with/altcha",
+      ChallengeJson: `{"algorithm":"SHA-256","challenge":"a4c9d8e7f1b23a6c...","signature":"7b3e2a9d5c8f1046e2d91c3a..."}`,
+      // or:
+      // ChallengeUrl: "https://example.com/altcha-challenge",
+   }
 ```
 
 
