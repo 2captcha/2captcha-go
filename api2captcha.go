@@ -265,7 +265,7 @@ type (
 
 var (
 	ErrNetwork = errors.New("api2captcha: Network failure")
-	ErrApi     = errors.New("api2captcha: API error")
+	ErrAPI     = errors.New("api2captcha: API error")
 	ErrTimeout = errors.New("api2captcha: Request timeout")
 )
 
@@ -324,11 +324,11 @@ func (c *Client) res(req Request) (*string, error) {
 	data := body.String()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, ErrApi
+		return nil, ErrAPI
 	}
 
 	if strings.HasPrefix(data, "ERROR_") {
-		return nil, ErrApi
+		return nil, ErrAPI
 	}
 
 	return &data, nil
@@ -412,15 +412,15 @@ func (c *Client) Send(req Request) (string, error) {
 	data := body.String()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", ErrApi
+		return "", errors.New(ErrAPI.Error() + " " + data)
 	}
 
 	if strings.HasPrefix(data, "ERROR_") {
-		return "", ErrApi
+		return "", errors.New(ErrAPI.Error() + " " + data)
 	}
 
 	if !strings.HasPrefix(data, "OK|") {
-		return "", ErrApi
+		return "", errors.New(ErrAPI.Error() + " " + data)
 	}
 
 	return data[3:], nil
@@ -507,7 +507,7 @@ func (c *Client) GetResult(id string) (*string, error) {
 	}
 
 	if !strings.HasPrefix(*data, "OK|") {
-		return nil, ErrApi
+		return nil, ErrAPI
 	}
 
 	reply := (*data)[3:]
