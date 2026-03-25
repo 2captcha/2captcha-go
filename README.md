@@ -48,6 +48,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Temu](#temu)
     - [VK Captcha](#vk-captcha)
     - [VK Image](#vk-image)
+    - [Altcha Captcha](#altcha-captcha)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
