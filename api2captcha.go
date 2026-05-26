@@ -162,6 +162,7 @@ type (
 		Url       string
 		ApiServer string
 		Challenge string
+		RiskType  string
 	}
 
 	Lemin struct {
@@ -934,6 +935,9 @@ func (c *GeeTestV4) ToRequest() Request {
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
+	}
+	if c.RiskType != "" {
+		req.Params["risk_type"] = c.RiskType
 	}
 
 	return req
