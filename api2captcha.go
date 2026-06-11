@@ -20,6 +20,11 @@ const (
 )
 
 type (
+	GenericCaptcha struct {
+		UserAgent string
+		Proxytype string
+		Proxy     string
+	}
 	Request struct {
 		Params map[string]string
 		Files  map[string]string
@@ -270,12 +275,10 @@ type (
 	}
 
 	Binance struct {
+		GenericCaptcha
 		Url        string
 		SiteKey    string
 		ValidateId string
-		UserAgent  string
-		Proxytype  string
-		Proxy      string
 	}
 )
 
