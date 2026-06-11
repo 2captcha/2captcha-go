@@ -268,6 +268,12 @@ type (
 		ChallengeJson string
 		ChallengeUrl  string
 	}
+
+	Binance struct {
+		Url        string
+		SiteKey    string
+		ValidateId string
+	}
 )
 
 var (
@@ -1250,6 +1256,24 @@ func (c *Altcha) ToRequest(method string) Request {
 
 	if c.ChallengeUrl != "" {
 		req.Params["challengeUrl"] = c.ChallengeUrl
+	}
+
+	return req
+}
+
+func (c *Binance) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "binance"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.ValidateId != "" {
+		req.Params["validate_id"] = c.ValidateId
 	}
 
 	return req

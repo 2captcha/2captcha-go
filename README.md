@@ -49,6 +49,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [VK Captcha](#vk-captcha)
     - [VK Image](#vk-image)
     - [Altcha Captcha](#altcha-captcha)
+    - [Binancecaptcha](#binancecaptcha)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -649,6 +650,19 @@ Use this method to solve Altcha Captcha. Returns a token.
    }
 ```
 
+### Binancecaptcha
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#binance)</sup>
+
+Use this method to bypass binance.
+
+```go
+    binance := api2captcha.Binance{
+		SiteKey:    "login",
+		Url:        "https://example.com/page-with-binance",
+		ValidateId: "cb0bfef...e54ecd57b",
+	}
+```
 
 ## Other methods
 
