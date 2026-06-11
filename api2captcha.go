@@ -273,6 +273,9 @@ type (
 		Url        string
 		SiteKey    string
 		ValidateId string
+		UserAgent  string
+		Proxytype  string
+		Proxy      string
 	}
 )
 
@@ -1274,6 +1277,15 @@ func (c *Binance) ToRequest() Request {
 	}
 	if c.ValidateId != "" {
 		req.Params["validate_id"] = c.ValidateId
+	}
+	if c.UserAgent != "" {
+		req.Params["userAgent"] = c.UserAgent
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
 	}
 
 	return req
