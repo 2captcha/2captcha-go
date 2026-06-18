@@ -237,6 +237,12 @@ type (
 		Lang   string
 	}
 
+	VKCaptcha struct {
+		File            string
+		Base64          string
+		Steps           string
+  }
+  
 	Prosopo struct {
 		Url     string
 		SiteKey string
@@ -1156,6 +1162,20 @@ func (c *Audio) ToRequest() Request {
 	return req
 }
 
+func (c *VKCaptcha) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "vkimage"},
+	}
+	if c.File != "" {
+		req.Files["file"] = c.File
+	}
+	if c.Base64 != "" {
+		req.Params["body"] = c.Base64
+	}
+	if c.Steps != "" {
+		req.Params["steps"] = c.Steps
+	}
+  
 func (c *Prosopo) ToRequest() Request {
 	req := Request{
 		Params: map[string]string{"method": "prosopo"},
