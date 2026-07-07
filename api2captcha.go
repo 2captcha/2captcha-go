@@ -286,6 +286,11 @@ type (
 		Prefix  string
 		Url     string
 	}
+
+	Basilisk struct {
+		SiteKey string
+		Url     string
+	}
 )
 
 var (
@@ -1311,6 +1316,21 @@ func (c *Alibaba) ToRequest() Request {
 	}
 	if c.Prefix != "" {
 		req.Params["prefix"] = c.Prefix
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Basilisk) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "basilisk"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url

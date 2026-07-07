@@ -51,6 +51,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Altcha Captcha](#altcha-captcha)
     - [Binancecaptcha](#binancecaptcha)
     - [Alibaba](#alibaba)
+    - [Basilisk](#basilisk)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -679,6 +680,22 @@ alibaba := api2captcha.Alibaba{
 }
 
 req := alibaba.ToRequest()
+code, captchaId, err := client.Solve(req)
+```
+
+### Basilisk
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#basilisk)</sup>
+
+Use this method to solve Basilisk captcha and obtain a token to bypass the protection.
+
+```go
+basilisk := api2captcha.Basilisk{
+    SiteKey: "b7890h...19fb2600897",
+    Url:     "https://example.com/page-with-basilisk",
+}
+
+req := basilisk.ToRequest()
 code, captchaId, err := client.Solve(req)
 ```
 
