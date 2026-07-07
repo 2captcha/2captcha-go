@@ -50,6 +50,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [VK Image](#vk-image)
     - [Altcha Captcha](#altcha-captcha)
     - [Binancecaptcha](#binancecaptcha)
+    - [Alibaba](#alibaba)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -662,6 +663,23 @@ Use this method to bypass binance.
 		Url:        "https://example.com/page-with-binance",
 		ValidateId: "cb0bfef...e54ecd57b",
 	}
+```
+
+### Alibaba
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#alibaba)</sup>
+
+Use this method to solve Alibaba CAPTCHA and obtain a token to bypass the protection. Returns a JSON token.
+
+```go
+alibaba := api2captcha.Alibaba{
+    SceneId: "bxs_login",
+    Prefix:  "a",
+    Url:     "https://example.com/page-with-alibaba",
+}
+
+req := alibaba.ToRequest()
+code, captchaId, err := client.Solve(req)
 ```
 
 ## Other methods

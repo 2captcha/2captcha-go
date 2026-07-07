@@ -280,6 +280,12 @@ type (
 		SiteKey    string
 		ValidateId string
 	}
+
+	Alibaba struct {
+		SceneId string
+		Prefix  string
+		Url     string
+	}
 )
 
 var (
@@ -335,6 +341,7 @@ func (c *Client) res(req Request) (*string, error) {
 	}
 
 	defer resp.Body.Close()
+
 	body := &bytes.Buffer{}
 	_, err = body.ReadFrom(resp.Body)
 	if err != nil {
@@ -1289,6 +1296,24 @@ func (c *Binance) ToRequest() Request {
 	}
 	if c.Proxy != "" {
 		req.Params["proxy"] = c.Proxy
+	}
+
+	return req
+}
+
+func (c *Alibaba) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "alibaba"},
+	}
+
+	if c.SceneId != "" {
+		req.Params["sceneId"] = c.SceneId
+	}
+	if c.Prefix != "" {
+		req.Params["prefix"] = c.Prefix
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
 	}
 
 	return req
