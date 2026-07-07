@@ -52,6 +52,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Binancecaptcha](#binancecaptcha)
     - [Alibaba](#alibaba)
     - [Basilisk](#basilisk)
+    - [Tspd](#tspd)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -696,6 +697,25 @@ basilisk := api2captcha.Basilisk{
 }
 
 req := basilisk.ToRequest()
+code, captchaId, err := client.Solve(req)
+```
+
+### Tspd
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#tspd)</sup>
+
+Use this method to bypass TSPD protection. Returns a JSON string with updated cookies.
+
+```go
+tspd := api2captcha.Tspd{
+    Url:            "https://example.com/page-with-tspd",
+    TspdCookie:     "TS386a400d029=082670...010245; TS386a400d078=082670...dbb3b0c",
+    HtmlPageBase64: "PCFET0NUWVBFIGh0bWw+...",
+    Proxytype:      "http",
+    Proxy:          "username:password@1.2.3.4:5678",
+}
+
+req := tspd.ToRequest()
 code, captchaId, err := client.Solve(req)
 ```
 

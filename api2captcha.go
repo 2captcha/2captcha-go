@@ -291,6 +291,14 @@ type (
 		SiteKey string
 		Url     string
 	}
+
+	Tspd struct {
+		Url            string
+		TspdCookie     string
+		HtmlPageBase64 string
+		Proxytype      string
+		Proxy          string
+	}
 )
 
 var (
@@ -1334,6 +1342,30 @@ func (c *Basilisk) ToRequest() Request {
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *Tspd) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "tspd"},
+	}
+
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.TspdCookie != "" {
+		req.Params["tspd_cookie"] = c.TspdCookie
+	}
+	if c.HtmlPageBase64 != "" {
+		req.Params["html_page_base64"] = c.HtmlPageBase64
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
 	}
 
 	return req
