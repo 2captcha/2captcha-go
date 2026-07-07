@@ -53,6 +53,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Alibaba](#alibaba)
     - [Basilisk](#basilisk)
     - [Tspd](#tspd)
+    - [Hunt](#hunt)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -716,6 +717,24 @@ tspd := api2captcha.Tspd{
 }
 
 req := tspd.ToRequest()
+code, captchaId, err := client.Solve(req)
+```
+
+### Hunt
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#hunt)</sup>
+
+Use this method to solve Hunt captcha and obtain a token to bypass the protection. A proxy is required — there is no proxyless variant for this captcha type.
+
+```go
+hunt := api2captcha.Hunt{
+    Url:       "https://example.com/page-with-hunt",
+    ApiGetLib: "https://example.com/hd-api/external/apps/app-id/api.js",
+    Proxytype: "http",
+    Proxy:     "username:password@1.2.3.4:5678",
+}
+
+req := hunt.ToRequest()
 code, captchaId, err := client.Solve(req)
 ```
 

@@ -299,6 +299,13 @@ type (
 		Proxytype      string
 		Proxy          string
 	}
+
+	Hunt struct {
+		Url       string
+		ApiGetLib string
+		Proxytype string
+		Proxy     string
+	}
 )
 
 var (
@@ -1360,6 +1367,27 @@ func (c *Tspd) ToRequest() Request {
 	}
 	if c.HtmlPageBase64 != "" {
 		req.Params["html_page_base64"] = c.HtmlPageBase64
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+
+	return req
+}
+
+func (c *Hunt) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "hunt"},
+	}
+
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.ApiGetLib != "" {
+		req.Params["api_get_lib"] = c.ApiGetLib
 	}
 	if c.Proxytype != "" {
 		req.Params["proxytype"] = c.Proxytype
