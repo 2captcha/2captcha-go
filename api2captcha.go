@@ -306,6 +306,11 @@ type (
 		Proxytype string
 		Proxy     string
 	}
+
+	Yidun struct {
+		SiteKey string
+		Url     string
+	}
 )
 
 var (
@@ -1394,6 +1399,21 @@ func (c *Hunt) ToRequest() Request {
 	}
 	if c.Proxy != "" {
 		req.Params["proxy"] = c.Proxy
+	}
+
+	return req
+}
+
+func (c *Yidun) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "yidun"},
+	}
+
+	if c.SiteKey != "" {
+		req.Params["sitekey"] = c.SiteKey
+	}
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
 	}
 
 	return req

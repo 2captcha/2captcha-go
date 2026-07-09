@@ -54,6 +54,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Basilisk](#basilisk)
     - [Tspd](#tspd)
     - [Hunt](#hunt)
+    - [Yidun](#yidun)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -735,6 +736,22 @@ hunt := api2captcha.Hunt{
 }
 
 req := hunt.ToRequest()
+code, captchaId, err := client.Solve(req)
+```
+
+### Yidun
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#yidun)</sup>
+
+Use this method to solve Yidun - NECaptcha and obtain a token to bypass the protection.
+
+```go
+yidun := api2captcha.Yidun{
+    SiteKey: "6b4d7e0c4f5a4c7db2f3a1e8c9d6f123",
+    Url:     "https://example.com/page-with-yidun",
+}
+
+req := yidun.ToRequest()
 code, captchaId, err := client.Solve(req)
 ```
 
