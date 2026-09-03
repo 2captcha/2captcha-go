@@ -55,6 +55,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Tspd](#tspd)
     - [Hunt](#hunt)
     - [Yidun](#yidun)
+    - [Drag-n-Drop](#drag-n-drop)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -752,6 +753,23 @@ yidun := api2captcha.Yidun{
 }
 
 req := yidun.ToRequest()
+code, captchaId, err := client.Solve(req)
+```
+
+### Drag-n-Drop
+
+<sup>[API method description.](https://rucaptcha.com/api-rucaptcha#drag-and-drop-captcha)</sup>
+
+Use this method to solve a Drag-n-Drop captcha: send a Base64-encoded background image and a list of Base64-encoded images that need to be dragged onto it. Returns a string with one set of coordinates per image, in the same order, separated by `|` (an image that doesn't need to be moved comes back as `null`).
+
+```go
+dragDrop := api2captcha.DragDrop{
+    Base64:   background, // Base64-encoded background image
+    Images:   []string{image1, image2}, // Base64-encoded images to drag, order matters
+    HintText: "Drag the images to proper position",
+}
+
+req := dragDrop.ToRequest()
 code, captchaId, err := client.Solve(req)
 ```
 

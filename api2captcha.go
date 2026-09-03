@@ -2,6 +2,7 @@ package api2captcha
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
 	"mime/multipart"
@@ -310,6 +311,13 @@ type (
 	Yidun struct {
 		SiteKey string
 		Url     string
+	}
+
+	DragDrop struct {
+		Base64   string
+		Images   []string
+		Lang     string
+		HintText string
 	}
 )
 
@@ -1414,6 +1422,28 @@ func (c *Yidun) ToRequest() Request {
 	}
 	if c.Url != "" {
 		req.Params["pageurl"] = c.Url
+	}
+
+	return req
+}
+
+func (c *DragDrop) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "drag_drop"},
+	}
+
+	if c.Base64 != "" {
+		req.Params["body"] = c.Base64
+	}
+	if len(c.Images) > 0 {
+		images, _ := json.Marshal(c.Images)
+		req.Params["images"] = string(images)
+	}
+	if c.Lang != "" {
+		req.Params["lang"] = c.Lang
+	}
+	if c.HintText != "" {
+		req.Params["textinstructions"] = c.HintText
 	}
 
 	return req

@@ -3,4 +3,5 @@ go build ./examples/TemuExample.go
 
 ./TemuExample <apikey>
 
+//todo: can't find images
 go run examples/TemuExample.go <apikey>
