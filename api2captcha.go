@@ -314,10 +314,12 @@ type (
 	}
 
 	DragDrop struct {
-		Base64   string
-		Images   []string
-		Lang     string
-		HintText string
+		Base64     string
+		Images     []string
+		Lang       string
+		HintText   string
+		Language   int
+		HeaderAcao int
 	}
 )
 
@@ -1444,6 +1446,12 @@ func (c *DragDrop) ToRequest() Request {
 	}
 	if c.HintText != "" {
 		req.Params["textinstructions"] = c.HintText
+	}
+	if c.Language > 0 {
+		req.Params["language"] = strconv.FormatInt(int64(c.Language), 10)
+	}
+	if c.HeaderAcao > 0 {
+		req.Params["header_acao"] = strconv.FormatInt(int64(c.HeaderAcao), 10)
 	}
 
 	return req
