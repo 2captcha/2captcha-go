@@ -321,6 +321,16 @@ type (
 		Language   int
 		HeaderAcao int
 	}
+
+	Imperva struct {
+		Url                string
+		IncapsulaScriptUrl string
+		IncapsulaCookies   string
+		Reese84UrlEndpoint string
+		UserAgent          string
+		Proxytype          string
+		Proxy              string
+	}
 )
 
 var (
@@ -1452,6 +1462,36 @@ func (c *DragDrop) ToRequest() Request {
 	}
 	if c.HeaderAcao > 0 {
 		req.Params["header_acao"] = strconv.FormatInt(int64(c.HeaderAcao), 10)
+	}
+
+	return req
+}
+
+func (c *Imperva) ToRequest() Request {
+	req := Request{
+		Params: map[string]string{"method": "incapsula"},
+	}
+
+	if c.Url != "" {
+		req.Params["pageurl"] = c.Url
+	}
+	if c.IncapsulaScriptUrl != "" {
+		req.Params["incapsula_script_url"] = c.IncapsulaScriptUrl
+	}
+	if c.IncapsulaCookies != "" {
+		req.Params["incapsula_cookies"] = c.IncapsulaCookies
+	}
+	if c.Reese84UrlEndpoint != "" {
+		req.Params["reese84_url_endpoint"] = c.Reese84UrlEndpoint
+	}
+	if c.Proxytype != "" {
+		req.Params["proxytype"] = c.Proxytype
+	}
+	if c.Proxy != "" {
+		req.Params["proxy"] = c.Proxy
+	}
+	if c.UserAgent != "" {
+		req.Params["useragent"] = c.UserAgent
 	}
 
 	return req

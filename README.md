@@ -56,6 +56,7 @@ Examples of API requests for different captcha types are available on the [Golan
     - [Hunt](#hunt)
     - [Yidun](#yidun)
     - [Drag-n-Drop](#drag-n-drop)
+    - [Imperva](#imperva)
   - [Other methods](#other-methods)
     - [send / getResult](#send--getresult)
     - [balance](#balance)
@@ -770,6 +771,27 @@ dragDrop := api2captcha.DragDrop{
 }
 
 req := dragDrop.ToRequest()
+code, captchaId, err := client.Solve(req)
+```
+
+### Imperva
+
+<sup>[API method description.](https://2captcha.com/2captcha-api#imperva)</sup>
+
+Use this method to bypass Imperva (Incapsula) protection. Returns a JSON string with cookies for the target domains and, if present, the User-Agent to use in requests to the site. A proxy is required — there is no proxyless variant for this captcha type.
+
+```go
+imperva := api2captcha.Imperva{
+    Url:                "https://example.com/login",
+    IncapsulaScriptUrl: "/_Incapsula_Resource?SWUDNSAI=31&xinfo=1",
+    IncapsulaCookies:   "visid_incap_123456=sample; incap_ses_123_123456=sample",
+    Reese84UrlEndpoint: "https://example.com/_Incapsula_Resource?reese84=1", // optional
+    UserAgent:          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36", // optional
+    Proxytype:          "http",
+    Proxy:              "username:password@1.2.3.4:5678",
+}
+
+req := imperva.ToRequest()
 code, captchaId, err := client.Solve(req)
 ```
 
